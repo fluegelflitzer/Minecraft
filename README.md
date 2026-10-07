@@ -1,5 +1,7 @@
 # Brat-Tierfarm XL – Huhn, Kuh, Schwein (Minecraft Java 26.3, Litematica)
 
+> **Weitere Farm in diesem Repo:** [Weizenfarm mit 4 Bauern (Brot/Weizen, 2×2 Chunks)](WEIZENFARM.md)
+
 Litematica-Vorlage für eine Survival-Farm. Sie tötet Tiere, ohne den Bestand zu verringern, und liefert
 das Fleisch **gleich gebraten**, weil die Tiere durch Lava sterben.
 

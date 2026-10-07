@@ -16,22 +16,28 @@
    ]
   }
  },
- "minecraft:grindstone": {
+ "minecraft:bell": {
   "default": {
-   "face": "wall",
-   "facing": "north"
+   "attachment": "floor",
+   "facing": "north",
+   "powered": "false"
   },
   "properties": {
-   "face": [
+   "attachment": [
     "floor",
-    "wall",
-    "ceiling"
+    "ceiling",
+    "single_wall",
+    "double_wall"
    ],
    "facing": [
     "north",
     "south",
     "west",
     "east"
+   ],
+   "powered": [
+    "true",
+    "false"
    ]
   }
  },
@@ -178,6 +184,28 @@
    ]
   }
  },
+ "minecraft:composter": {
+  "default": {
+   "level": "0"
+  },
+  "properties": {
+   "level": [
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8"
+   ]
+  }
+ },
+ "minecraft:dirt": {
+  "default": {},
+  "properties": {}
+ },
  "minecraft:dispenser": {
   "default": {
    "facing": "north",
@@ -198,9 +226,49 @@
    ]
   }
  },
+ "minecraft:farmland": {
+  "default": {
+   "moisture": "0"
+  },
+  "properties": {
+   "moisture": [
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7"
+   ]
+  }
+ },
  "minecraft:glass": {
   "default": {},
   "properties": {}
+ },
+ "minecraft:glowstone": {
+  "default": {},
+  "properties": {}
+ },
+ "minecraft:grindstone": {
+  "default": {
+   "face": "wall",
+   "facing": "north"
+  },
+  "properties": {
+   "face": [
+    "floor",
+    "wall",
+    "ceiling"
+   ],
+   "facing": [
+    "north",
+    "south",
+    "west",
+    "east"
+   ]
+  }
  },
  "minecraft:hopper": {
   "default": {
@@ -298,6 +366,64 @@
     "east"
    ],
    "has_book": [
+    "true",
+    "false"
+   ],
+   "powered": [
+    "true",
+    "false"
+   ]
+  }
+ },
+ "minecraft:lightning_rod": {
+  "default": {
+   "facing": "up",
+   "powered": "false",
+   "waterlogged": "false"
+  },
+  "properties": {
+   "facing": [
+    "north",
+    "east",
+    "south",
+    "west",
+    "up",
+    "down"
+   ],
+   "powered": [
+    "true",
+    "false"
+   ],
+   "waterlogged": [
+    "true",
+    "false"
+   ]
+  }
+ },
+ "minecraft:oak_door": {
+  "default": {
+   "facing": "north",
+   "half": "lower",
+   "hinge": "left",
+   "open": "false",
+   "powered": "false"
+  },
+  "properties": {
+   "facing": [
+    "north",
+    "south",
+    "west",
+    "east"
+   ],
+   "half": [
+    "upper",
+    "lower"
+   ],
+   "hinge": [
+    "left",
+    "right"
+   ],
+   "open": [
     "true",
     "false"
    ],
@@ -577,5 +703,26 @@
     "15"
    ]
   }
+ },
+ "minecraft:wheat": {
+  "default": {
+   "age": "0"
+  },
+  "properties": {
+   "age": [
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7"
+   ]
+  }
+ },
+ "minecraft:white_stained_glass": {
+  "default": {},
+  "properties": {}
  }
 }
