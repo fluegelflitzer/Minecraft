@@ -12,7 +12,7 @@ Diese Würfe landen über ein Trichterrohr in einer zentralen Kiste.
 | Minecraft | Java Edition **26.3** (Litematica-Format Version 7, DataVersion 5023) |
 | Größe | 32 × 23 × 16 Blöcke: genau **2 × 1 Chunks**, **23 hoch**, **7 Etagen** |
 | Dorfbewohner | 21: **14 Bauern** (2 pro Etage) + **7 Sammler** (1 pro Etage, mittig) |
-| Ertrag | im Test ≈ **440 Brot + 120 Weizen pro Stunde** (Echtzeit, Farm geladen) |
+| Ertrag | im Test ≈ **450 Brot + 270 Weizen pro Stunde** (Echtzeit, Farm geladen) |
 | Lager | **1 zentrale Doppelkiste** im Erdgeschoss (alle 7 Etagen über ein Trichterrohr) |
 | Bauweise | Wände und Dach aus Bruchtiefenschiefer |
 | Eisen | 240 (48 Trichter) |
@@ -138,7 +138,7 @@ besetzen, bevor die nächste darüber kommt (siehe 4.).
 ## 5. Betrieb
 
 - **Zentralkiste leeren:** Doppelkiste im Erdgeschoss in der Trennwand, von beiden Modulen aus zu öffnen
-  (rein über Balkon und Zauntor). Sie fasst 54 Stapel ≈ 3 450 Items, das sind gut **6 Stunden**
+  (rein über Balkon und Zauntor). Sie fasst 54 Stapel ≈ 3 450 Items, das sind etwa **5 Stunden**
   Farmbetrieb. Ist sie voll, staut sich das Rohr; die Bauern heben ihre Würfe dann wieder auf. Leere
   sie trotzdem rechtzeitig: Bei vollem Rohr könnte ein Sammler Brot aufheben, und dann gehen bei
   Vermehrungsversuchen Brote verloren. Für mehr Lager kannst du statt der Doppelkiste einen
@@ -154,11 +154,30 @@ besetzen, bevor die nächste darüber kommt (siehe 4.).
 Headless 26.3-Server, Farm per `/setblock` gebaut, Blöcke aus den Regionsdateien zurückgelesen, dann im
 Zeitraffer (`/tick sprint`) mit echten Dorfbewohnern betrieben.
 
-**Aktuelle Version (Zentralkiste, Bruchtiefenschiefer):** gebaut und zurückgelesen mit 0 Abweichungen,
-alle statischen Prüfungen grün (u. a. jeder Trichter endet in der Zentralkiste). Der Dauertest mit
-Dorfbewohnern läuft gerade; das Ergebnis wird hier nachgetragen.
+### Aktuelle Version (Zentralkiste, Bruchtiefenschiefer)
 
-**Vorversion (gleiche Etagen und Bauern, aber 14 Einzelkisten und Glaswände):**
+Gebaut und zurückgelesen mit **0 Abweichungen**, alle statischen Prüfungen grün. Feld zu Beginn voll
+bepflanzt, 14 Bauern + 7 Sammler, Zahlen zur Mittagszeit:
+
+| Spieltag | Zentralkiste: Brot | Zentralkiste: Weizen | Brot / Weizen bei den Bauern | bei den Sammlern | liegende Items |
+|---:|---:|---:|---|---|---:|
+| 1 | 0 | 0 | 73 / 42 | leer | 1 |
+| 2 | 0 | 34 | 189 / 157 | leer | 0 |
+| 3 | 35 | 90 | 305 / 194 | leer | 0 |
+| 4 | 183 | 121 | 311 / 226 | leer | 3 |
+| 5 | 356 | 157 | 303 / 238 | leer | 0 |
+| 6 | 471 | 278 | 328 / 239 | leer | 0 |
+| 7 | 631 | 381 | 302 / 256 | leer | 1 |
+| 8 | **786** | **484** | 295 / 254 | leer | 1 |
+
+- **Leistung** (Tag 4 bis 8): ≈ 150 Brot + 90 Weizen pro Spieltag, also ≈ **450 Brot + 270 Weizen pro
+  Stunde** Echtzeit.
+- **Trichterrohr staut nicht:** Am Ende waren alle 48 Trichter leer, alles lag in der Zentralkiste.
+- **Sammler blieben die ganzen 8 Tage leer**, alle 14 Bauern behielten ihren Beruf.
+
+### Vorversion (gleiche Etagen und Bauern, aber 14 Einzelkisten und Glaswände)
+
+
 
 Feld zu Beginn voll bepflanzt (Weizen in zufälligem Alter), 14 Bauern + 7 Sammler, Zahlen jeweils zur
 Mittagszeit des Spieltags:
