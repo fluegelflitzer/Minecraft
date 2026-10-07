@@ -12,7 +12,7 @@ Diese Würfe landen in Kisten.
 | Minecraft | Java Edition **26.3** (Litematica-Format Version 7, DataVersion 5023) |
 | Größe | 32 × 23 × 16 Blöcke: genau **2 × 1 Chunks**, **23 hoch**, **7 Etagen** |
 | Dorfbewohner | 21: **14 Bauern** (2 pro Etage) + **7 Sammler** (1 pro Etage, mittig) |
-| Ertrag | im Test ≈ **480 Brot + 110 Weizen pro Stunde** (Echtzeit, Farm geladen) |
+| Ertrag | im Test ≈ **440 Brot + 120 Weizen pro Stunde** (Echtzeit, Farm geladen) |
 | Lager | 14 Kisten (je Bauer eine, direkt neben dem Sammler) |
 | Eisen | 70 (14 Trichter) |
 
@@ -152,17 +152,23 @@ Mittagszeit des Spieltags:
 | 4 | 154 | 21 | 334 / 191 | 1 Weizen | 0 |
 | 5 | 312 | 64 | 318 / 215 | 1 Weizen | 2 |
 | 6 | 488 | 109 | 310 / 130 | 1 Weizen | 0 |
-| 7 | **633** | **130** | 306 / 169 | 1 Weizen | 0 |
+| 7 | 633 | 130 | 306 / 169 | 1 Weizen | 0 |
+| 8 | 763 | 130 | 326 / 186 | 1 Weizen | 1 |
+| 9 | 910 | 130 | 348 / 143 | 1 Weizen | 2 |
+| 10 | 1 031 | 185 | 349 / 204 | 1 Weizen | 2 |
+| 11 | 1 188 | 225 | 320 / 271 | 1 Weizen | 1 |
+| 12 | **1 328** | **340** | 320 / 208 | 18 Weizen (1 Sammler) | 1 |
 
 - **Bau:** 0 Befehle ohne Wirkung, Rücklesen aus den Regionsdateien: **0 Abweichungen**.
   Der erste Testbau hatte noch *obere* Wasserstufen; deren Wasser lief in die Etage darunter. Seitdem
   sind es untere Stufen.
 - **Alle 14 Kompostierer** wurden sofort von den 14 Bauern belegt, die 7 Sammler blieben ohne Beruf.
-- **Leistung** (Tag 4 bis 7): ≈ 160 Brot + 36 Weizen pro Spieltag, also ≈ 480 Brot + 110 Weizen pro
-  Stunde Echtzeit.
-- **Nichts geht verloren:** Fast keine Items lagen herum (frische Ernte, die der Bauer gleich aufhebt).
-  Ein Sammler hob einmal 1 Weizen auf (ein Wurf, der nicht auf dem Trichter landete). Weizen ist kein
-  Essen und stört nicht.
+- **Leistung** (Tag 4 bis 12): ≈ 147 Brot + 40 Weizen pro Spieltag, also ≈ 440 Brot + 120 Weizen pro
+  Stunde Echtzeit – gleichmäßig über den ganzen Test.
+- **Alle 14 Bauern liefern:** Nach 12 Tagen hatte jede der 14 Kisten 76–110 Brot (dazu bis 103 Weizen).
+- **Kaum Verlust:** Fast keine Items lagen herum (frische Ernte, die der Bauer gleich aufhebt).
+  Zwei Würfe Weizen landeten nicht auf dem Trichter, sondern beim Sammler (zusammen 18 Weizen in
+  12 Tagen). Weizen ist kein Essen für Dorfbewohner und stört nicht; Brot blieb nie beim Sammler.
 - **Vergleich, warum getrennte Bauern:** Mit 4 Bauern in *einem* Feld kamen in 10 Spieltagen
   **0 Brot** an, weil die Bauern ihr Brot bei Vermehrungsversuchen aßen.
 
