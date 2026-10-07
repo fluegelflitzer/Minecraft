@@ -1,0 +1,510 @@
+{
+ "minecraft:air": {
+  "default": {},
+  "properties": {}
+ },
+ "minecraft:cauldron": {
+  "default": {},
+  "properties": {}
+ },
+ "minecraft:chest": {
+  "default": {
+   "facing": "north",
+   "type": "single",
+   "waterlogged": "false"
+  },
+  "properties": {
+   "facing": [
+    "north",
+    "south",
+    "west",
+    "east"
+   ],
+   "type": [
+    "single",
+    "left",
+    "right"
+   ],
+   "waterlogged": [
+    "true",
+    "false"
+   ]
+  }
+ },
+ "minecraft:cobblestone": {
+  "default": {},
+  "properties": {}
+ },
+ "minecraft:cobblestone_slab": {
+  "default": {
+   "type": "bottom",
+   "waterlogged": "false"
+  },
+  "properties": {
+   "type": [
+    "top",
+    "bottom",
+    "double"
+   ],
+   "waterlogged": [
+    "true",
+    "false"
+   ]
+  }
+ },
+ "minecraft:cobblestone_stairs": {
+  "default": {
+   "facing": "north",
+   "half": "bottom",
+   "shape": "straight",
+   "waterlogged": "false"
+  },
+  "properties": {
+   "facing": [
+    "north",
+    "south",
+    "west",
+    "east"
+   ],
+   "half": [
+    "top",
+    "bottom"
+   ],
+   "shape": [
+    "straight",
+    "inner_left",
+    "inner_right",
+    "outer_left",
+    "outer_right"
+   ],
+   "waterlogged": [
+    "true",
+    "false"
+   ]
+  }
+ },
+ "minecraft:cobblestone_wall": {
+  "default": {
+   "east": "none",
+   "north": "none",
+   "south": "none",
+   "up": "true",
+   "waterlogged": "false",
+   "west": "none"
+  },
+  "properties": {
+   "east": [
+    "none",
+    "low",
+    "tall"
+   ],
+   "north": [
+    "none",
+    "low",
+    "tall"
+   ],
+   "south": [
+    "none",
+    "low",
+    "tall"
+   ],
+   "up": [
+    "true",
+    "false"
+   ],
+   "waterlogged": [
+    "true",
+    "false"
+   ],
+   "west": [
+    "none",
+    "low",
+    "tall"
+   ]
+  }
+ },
+ "minecraft:comparator": {
+  "default": {
+   "facing": "north",
+   "mode": "compare",
+   "powered": "false"
+  },
+  "properties": {
+   "facing": [
+    "north",
+    "south",
+    "west",
+    "east"
+   ],
+   "mode": [
+    "compare",
+    "subtract"
+   ],
+   "powered": [
+    "true",
+    "false"
+   ]
+  }
+ },
+ "minecraft:dispenser": {
+  "default": {
+   "facing": "north",
+   "triggered": "false"
+  },
+  "properties": {
+   "facing": [
+    "north",
+    "east",
+    "south",
+    "west",
+    "up",
+    "down"
+   ],
+   "triggered": [
+    "true",
+    "false"
+   ]
+  }
+ },
+ "minecraft:glass": {
+  "default": {},
+  "properties": {}
+ },
+ "minecraft:hopper": {
+  "default": {
+   "enabled": "true",
+   "facing": "down"
+  },
+  "properties": {
+   "enabled": [
+    "true",
+    "false"
+   ],
+   "facing": [
+    "down",
+    "north",
+    "south",
+    "west",
+    "east"
+   ]
+  }
+ },
+ "minecraft:ladder": {
+  "default": {
+   "facing": "north",
+   "waterlogged": "false"
+  },
+  "properties": {
+   "facing": [
+    "north",
+    "south",
+    "west",
+    "east"
+   ],
+   "waterlogged": [
+    "true",
+    "false"
+   ]
+  }
+ },
+ "minecraft:lava": {
+  "default": {
+   "level": "0"
+  },
+  "properties": {
+   "level": [
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+    "11",
+    "12",
+    "13",
+    "14",
+    "15"
+   ]
+  }
+ },
+ "minecraft:lava_cauldron": {
+  "default": {},
+  "properties": {}
+ },
+ "minecraft:oak_fence_gate": {
+  "default": {
+   "facing": "north",
+   "in_wall": "false",
+   "open": "false",
+   "powered": "false"
+  },
+  "properties": {
+   "facing": [
+    "north",
+    "south",
+    "west",
+    "east"
+   ],
+   "in_wall": [
+    "true",
+    "false"
+   ],
+   "open": [
+    "true",
+    "false"
+   ],
+   "powered": [
+    "true",
+    "false"
+   ]
+  }
+ },
+ "minecraft:oak_log": {
+  "default": {
+   "axis": "y"
+  },
+  "properties": {
+   "axis": [
+    "x",
+    "y",
+    "z"
+   ]
+  }
+ },
+ "minecraft:oak_planks": {
+  "default": {},
+  "properties": {}
+ },
+ "minecraft:oak_sign": {
+  "default": {
+   "rotation": "8",
+   "waterlogged": "false"
+  },
+  "properties": {
+   "rotation": [
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+    "11",
+    "12",
+    "13",
+    "14",
+    "15"
+   ],
+   "waterlogged": [
+    "true",
+    "false"
+   ]
+  }
+ },
+ "minecraft:oak_slab": {
+  "default": {
+   "type": "bottom",
+   "waterlogged": "false"
+  },
+  "properties": {
+   "type": [
+    "top",
+    "bottom",
+    "double"
+   ],
+   "waterlogged": [
+    "true",
+    "false"
+   ]
+  }
+ },
+ "minecraft:oak_trapdoor": {
+  "default": {
+   "facing": "north",
+   "half": "bottom",
+   "open": "false",
+   "powered": "false",
+   "waterlogged": "false"
+  },
+  "properties": {
+   "facing": [
+    "north",
+    "south",
+    "west",
+    "east"
+   ],
+   "half": [
+    "top",
+    "bottom"
+   ],
+   "open": [
+    "true",
+    "false"
+   ],
+   "powered": [
+    "true",
+    "false"
+   ],
+   "waterlogged": [
+    "true",
+    "false"
+   ]
+  }
+ },
+ "minecraft:oak_wall_sign": {
+  "default": {
+   "facing": "north",
+   "waterlogged": "false"
+  },
+  "properties": {
+   "facing": [
+    "north",
+    "south",
+    "west",
+    "east"
+   ],
+   "waterlogged": [
+    "true",
+    "false"
+   ]
+  }
+ },
+ "minecraft:redstone_wire": {
+  "default": {
+   "east": "none",
+   "north": "none",
+   "power": "0",
+   "south": "none",
+   "west": "none"
+  },
+  "properties": {
+   "east": [
+    "up",
+    "side",
+    "none"
+   ],
+   "north": [
+    "up",
+    "side",
+    "none"
+   ],
+   "power": [
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+    "11",
+    "12",
+    "13",
+    "14",
+    "15"
+   ],
+   "south": [
+    "up",
+    "side",
+    "none"
+   ],
+   "west": [
+    "up",
+    "side",
+    "none"
+   ]
+  }
+ },
+ "minecraft:smooth_stone_slab": {
+  "default": {
+   "type": "bottom",
+   "waterlogged": "false"
+  },
+  "properties": {
+   "type": [
+    "top",
+    "bottom",
+    "double"
+   ],
+   "waterlogged": [
+    "true",
+    "false"
+   ]
+  }
+ },
+ "minecraft:stone": {
+  "default": {},
+  "properties": {}
+ },
+ "minecraft:stone_bricks": {
+  "default": {},
+  "properties": {}
+ },
+ "minecraft:stonecutter": {
+  "default": {
+   "facing": "north"
+  },
+  "properties": {
+   "facing": [
+    "north",
+    "south",
+    "west",
+    "east"
+   ]
+  }
+ },
+ "minecraft:torch": {
+  "default": {},
+  "properties": {}
+ },
+ "minecraft:wall_torch": {
+  "default": {
+   "facing": "north"
+  },
+  "properties": {
+   "facing": [
+    "north",
+    "south",
+    "west",
+    "east"
+   ]
+  }
+ },
+ "minecraft:water": {
+  "default": {
+   "level": "0"
+  },
+  "properties": {
+   "level": [
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+    "11",
+    "12",
+    "13",
+    "14",
+    "15"
+   ]
+  }
+ }
+}
