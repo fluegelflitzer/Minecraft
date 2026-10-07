@@ -3,6 +3,38 @@
   "default": {},
   "properties": {}
  },
+ "minecraft:anvil": {
+  "default": {
+   "facing": "north"
+  },
+  "properties": {
+   "facing": [
+    "north",
+    "south",
+    "west",
+    "east"
+   ]
+  }
+ },
+ "minecraft:grindstone": {
+  "default": {
+   "face": "wall",
+   "facing": "north"
+  },
+  "properties": {
+   "face": [
+    "floor",
+    "wall",
+    "ceiling"
+   ],
+   "facing": [
+    "north",
+    "south",
+    "west",
+    "east"
+   ]
+  }
+ },
  "minecraft:cauldron": {
   "default": {},
   "properties": {}
@@ -207,6 +239,22 @@
    ]
   }
  },
+ "minecraft:lantern": {
+  "default": {
+   "hanging": "false",
+   "waterlogged": "false"
+  },
+  "properties": {
+   "hanging": [
+    "true",
+    "false"
+   ],
+   "waterlogged": [
+    "true",
+    "false"
+   ]
+  }
+ },
  "minecraft:lava": {
   "default": {
    "level": "0"
@@ -235,6 +283,29 @@
  "minecraft:lava_cauldron": {
   "default": {},
   "properties": {}
+ },
+ "minecraft:lectern": {
+  "default": {
+   "facing": "north",
+   "has_book": "false",
+   "powered": "false"
+  },
+  "properties": {
+   "facing": [
+    "north",
+    "south",
+    "west",
+    "east"
+   ],
+   "has_book": [
+    "true",
+    "false"
+   ],
+   "powered": [
+    "true",
+    "false"
+   ]
+  }
  },
  "minecraft:oak_fence_gate": {
   "default": {

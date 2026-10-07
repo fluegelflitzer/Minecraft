@@ -184,13 +184,13 @@ def report(r, m: fm.Model) -> dict:
 
 def sim(r, m: fm.Model, args) -> dict:
     r.cmd("kill @e[type=minecraft:item]")
-    # Elterntiere: je Zuchtgang args.parents // 2 Tiere
+    # Elterntiere: Zuchtgänge voll besetzen (1 Tier pro Feld)
     for sp in ("cow", "pig"):
-        for pos in m.notes[f"{sp}_pen"][::2]:
-            x, y, z = pos
-            for k in range(args.parents // 2):
-                summon(r, sp, (x + 2 * k if x < 8 else x - 2 * k, y, z), '{Tags:["parent"]}')
-    # Hennen in die Zuchttrichter
+        notes = m.notes[f"{sp}_pen"]
+        for (xa, y, z), (xb, _, _) in zip(notes[::2], notes[1::2]):
+            step = 1 if xb >= xa else -1
+            for x in range(xa, xb + step, step):
+                summon(r, sp, (x, y, z), '{Tags:["parent"]}')
     rng = random.Random(1)
     for pos in m.notes["chicken_breeder"]:
         for _ in range(args.hens):
@@ -212,15 +212,30 @@ def sim(r, m: fm.Model, args) -> dict:
     return res
 
 
+def firetest(r, args) -> str:
+    """Lava-Brandtest: Feuer überall erlauben (ohne Spieler breitet sich Feuer sonst nicht aus) und die
+    Zufallsticks stark erhöhen, damit jede Lava viele hundert Mal versucht, etwas anzuzünden."""
+    r.cmd("gamerule fire_spread_radius_around_player -1")
+    r.cmd(f"gamerule random_tick_speed {args.random_tick_speed}")
+    wait_ticks(r, args.fire_ticks)
+    r.cmd("gamerule random_tick_speed 3")
+    r.cmd("gamerule fire_spread_radius_around_player 128")
+    x0, y0, z0 = w(-2, 0, -2)
+    x1, y1, z1 = w(17, 12, 33)
+    return r.cmd(f"fill {x0} {y0} {z0} {x1} {y1} {z1} minecraft:air replace minecraft:fire")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--server-dir", required=True, type=Path)
     ap.add_argument("--password", default="farmtest")
-    ap.add_argument("step", choices=["build", "readback", "sim", "all"])
-    ap.add_argument("--parents", type=int, default=6)
+    ap.add_argument("step", choices=["build", "readback", "sim", "fire", "all"])
+    ap.add_argument("--random-tick-speed", type=int, default=1000)
+    ap.add_argument("--fire-ticks", type=int, default=3000)
+    ap.add_argument("--parents", type=int, default=10)
     ap.add_argument("--hens", type=int, default=4)
     ap.add_argument("--eggtime", type=int, default=6000)
-    ap.add_argument("--rounds", type=int, default=3)
+    ap.add_argument("--rounds", type=int, default=4)
     ap.add_argument("--round-ticks", type=int, default=6100)
     ap.add_argument("--final-ticks", type=int, default=26000)
     args = ap.parse_args()
@@ -234,6 +249,12 @@ def main():
         blocks = readback(r, args.server_dir, m)
         diffs = compare(m, blocks)
         print(f"Readback: {len(diffs)} Abweichungen")
+        for d in diffs[:60]:
+            print("  ", d)
+    if args.step in ("fire", "all"):
+        print("Brandtest:", firetest(r, args))
+        diffs = compare(m, readback(r, args.server_dir, m))
+        print(f"Blöcke nach dem Brandtest: {len(diffs)} Abweichungen")
         for d in diffs[:60]:
             print("  ", d)
     if args.step in ("sim", "all"):
