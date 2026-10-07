@@ -23,7 +23,7 @@ _ITEM = {
     "hopper": "Trichter",
     "lava_cauldron": "Kessel",
     "stonecutter": "Steinsäge",
-    "dispenser": "Spender",
+    "dispenser": "Werfer",
     "comparator": "Komparator",
     "redstone_wire": "Redstone-Staub",
     "lantern": "Laterne",

@@ -1,12 +1,18 @@
 """Statische Prüfungen der Weizenfarm (laufen vor jedem Export)."""
 from __future__ import annotations
 
+from collections import deque
+
 from farm.blocks import _DATA
 from farm.model import Model
 
 from . import model as wm
 
-MAX_XZ, MAX_Y = 32, 24
+MAX_X, MAX_Z, MAX_Y = 32, 16, 23  # 2 x 1 Chunks, 23 hoch
+
+# Blöcke, durch die Blocklicht ungehindert geht (Weizen wächst später in der Luft über dem Acker)
+_TRANSPARENT = {"air", "glass", "oak_fence_gate", "ladder"}
+_LIGHT_SOURCES = {"jack_o_lantern", "glowstone"}
 
 
 def check_states(m: Model) -> list[str]:
@@ -25,21 +31,20 @@ def check_states(m: Model) -> list[str]:
 def check_footprint(m: Model) -> list[str]:
     sx, sy, sz = m.size
     errors = []
-    if sx > MAX_XZ or sz > MAX_XZ:
-        errors.append(f"Grundriss {sx}x{sz} größer als 2x2 Chunks")
+    if sx > MAX_X or sz > MAX_Z:
+        errors.append(f"Grundriss {sx}x{sz} größer als 2x1 Chunks")
     if sy > MAX_Y:
         errors.append(f"Höhe {sy} größer als {MAX_Y}")
     return errors
 
 
-def _is_water(m: Model, pos) -> bool:
-    b = m.get(*pos)
-    return b.id == "water" or ("waterlogged" in dict(b.props) and b.prop("waterlogged") == "true")
+def _is_water(b) -> bool:
+    return b.id == "water" or dict(b.props).get("waterlogged") == "true"
 
 
 def check_hydration(m: Model) -> list[str]:
     """Jeder Acker hat Wasser im Umkreis von 4 Blöcken (gleiche Höhe) und Luft darüber."""
-    water = [p for p in m.blocks if _is_water(m, p)]
+    water = [p for p, b in m.blocks.items() if _is_water(b)]
     errors = []
     for (x, y, z), b in m.blocks.items():
         if b.id != "farmland":
@@ -51,47 +56,72 @@ def check_hydration(m: Model) -> list[str]:
     return errors
 
 
-def check_light(m: Model) -> list[str]:
-    """Kein Platz mit tragender Oberseite und 2 Blöcken Luft darüber bleibt ohne Blocklicht (Monster)."""
-    lamps = [p for p, b in m.blocks.items() if b.id == "glowstone"]
+def block_light(m: Model) -> dict:
+    """Blocklicht (vereinfacht, konservativ): breitet sich nur durch Luft/Glas/Tore aus, -1 je Block."""
     sx, sy, sz = m.size
+    light, q = {}, deque()
+    for p, b in m.blocks.items():
+        if b.id in _LIGHT_SOURCES:
+            light[p] = 15
+            q.append(p)
+    while q:
+        x, y, z = q.popleft()
+        v = light[(x, y, z)] - 1
+        if v <= 0:
+            continue
+        for dx, dy, dz in ((1, 0, 0), (-1, 0, 0), (0, 1, 0), (0, -1, 0), (0, 0, 1), (0, 0, -1)):
+            n = (x + dx, y + dy, z + dz)
+            if not (0 <= n[0] < sx and 0 <= n[1] < sy and 0 <= n[2] < sz):
+                continue
+            if m.get(*n).id in _TRANSPARENT and light.get(n, 0) < v:
+                light[n] = v
+                q.append(n)
+    return light
+
+
+def check_light(m: Model) -> list[str]:
+    """Weizen braucht Licht >= 9 (ohne Himmelslicht gerechnet); keine dunkle Stelle für Monster im Inneren."""
+    light = block_light(m)
     errors = []
     for (x, y, z), b in m.blocks.items():
+        if b.id == "farmland" and light.get((x, y + 1, z), 0) < 9:
+            errors.append(f"Zu dunkel für Weizen über {(x, y, z)}: {light.get((x, y + 1, z), 0)}")
+    sx, sy, sz = m.size
+    for (x, y, z), b in m.blocks.items():
         top_solid = b.id in ("dirt", "cobblestone", "glass") or (b.id.endswith("_slab") and b.prop("type") != "bottom")
-        if not top_solid or not (0 < x < sx - 1 and 0 < z < sz - 1) or y + 2 >= sy:
-            continue
-        if m.get(x, y + 1, z).id != "air" or m.get(x, y + 2, z).id != "air":
-            continue
-        # Licht innerhalb desselben Moduls (keine Wand dazwischen): Manhattan-Abstand < 15
-        same = [L for L in lamps if (L[0] < wm.MID) == (x < wm.MID) and (L[2] < wm.MID) == (z < wm.MID)]
-        if not any(abs(L[0] - x) + abs(L[1] - (y + 1)) + abs(L[2] - z) < 15 for L in same):
+        inside = 0 < x < sx - 1 and 0 < z < wm.WALL_Z[1] and x not in (15, 16)
+        if top_solid and inside and y + 2 < sy and m.get(x, y + 1, z).id == "air" \
+                and m.get(x, y + 2, z).id == "air" and light.get((x, y + 1, z), 0) == 0:
             errors.append(f"Dunkle Stelle {(x, y + 1, z)}")
     return errors
 
 
 def check_collectors(m: Model) -> list[str]:
-    """Sammler-Zelle: Kiste als Boden, Schlitz-Trichter davor -> Trichter -> Kiste, Zelle dicht, Schlitz frei."""
+    """Sammler-Zelle: dicht, Schlitz-Trichter -> Kiste auf beiden Seiten, Sichtschlitze frei, Decke darüber."""
     errors = []
     for (x, y, z) in m.notes["cell"]:
-        dz = 1 if z < wm.MID else -1  # Richtung ins Modul
-        out = "north" if dz == 1 else "south"
-        want = {
-            (x, y - 1, z): ("chest", None),
-            (x, y, z + dz): ("hopper", "down"),
-            (x, y - 1, z + dz): ("hopper", out),
-            (x, y + 2, z): ("glass", None),
-            (x - 1, y, z): ("glass", None), (x + 1, y, z): ("glass", None),
-            (x - 1, y + 1, z): ("glass", None), (x + 1, y + 1, z): ("glass", None),
-            (x, y, z - dz): ("glass", None), (x, y + 1, z - dz): ("glass", None),
-            (x, y + 1, z + dz): ("air", None),  # Sichtschlitz
-            (x, y - 1, z - dz): ("air", None),  # Loch in der Außenwand vor der Kiste
-        }
-        for pos, (bid, facing) in want.items():
-            b = m.get(*pos)
-            if b.id != bid or (facing and b.prop("facing") != facing):
-                errors.append(f"Sammler {(x, y, z)}: {pos} ist {b}, erwartet {bid} {facing or ''}")
+        want = {(x, y - 1, z): "dirt"}
+        for dz in (-1, 1):
+            want[(x, y, z + dz)] = "glass"
+            want[(x, y + 1, z + dz)] = "glass"
+        for sx in (x - 1, x + 1):
+            want[(sx, y, z)] = "hopper"
+            want[(sx, y, z + 1)] = "chest"
+            want[(sx, y, z - 1)] = "glass"
+            for dz in (-1, 0, 1):
+                want[(sx, y + 1, z + dz)] = "air"  # Sichtschlitz
+        for pos, bid in want.items():
+            if m.get(*pos).id != bid:
+                errors.append(f"Sammler {(x, y, z)}: {pos} ist {m.get(*pos)}, erwartet {bid}")
+        for sx in (x - 1, x + 1):
+            if m.get(sx, y, z).id == "hopper" and m.get(sx, y, z).prop("facing") != "south":
+                errors.append(f"Sammler {(x, y, z)}: Trichter {(sx, y, z)} zeigt nicht in die Kiste")
         if m.get(x, y, z).id != "air" or m.get(x, y + 1, z).id != "air":
             errors.append(f"Sammler {(x, y, z)}: Zelle nicht frei")
+        for sx in (x - 1, x, x + 1):  # Decke über Zelle und Schlitzen: voller Block
+            for dz in ((-1, 0, 1) if sx != x else (0,)):
+                if m.get(sx, y + 2, z + dz).id in ("air", "farmland"):
+                    errors.append(f"Sammler {(x, y, z)}: keine Decke über {(sx, y + 1, z + dz)}")
     return errors
 
 

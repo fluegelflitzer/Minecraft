@@ -5,25 +5,35 @@ from collections import Counter
 
 from farm.model import Model
 
+
 _ITEM = {
     "glass": "Glas",
-    "farmland": "Ackerboden (Erde/Gras mit der Hacke)",
+    "farmland": "Ackerboden (Erde mit der Hacke)",
     "dirt": "Erde",
     "cobblestone": "Bruchstein",
-    "cobblestone_slab": "Bruchsteinstufe (obere Hälfte, mit Wasser gefüllt)",
     "hopper": "Trichter",
     "chest": "Kiste",
     "composter": "Komposter",
+    "jack_o_lantern": "Kürbislaterne",
     "glowstone": "Leuchtstein (Block)",
     "oak_fence_gate": "Eichenzauntor",
+    "ladder": "Leiter",
     "lightning_rod": "Blitzableiter",
 }
 IRON = {"Trichter": 5}
 COPPER = {"Blitzableiter": 3}
 
 
+def _item(b) -> str:
+    if b.id == "cobblestone_slab":
+        if b.prop("waterlogged") == "true":
+            return "Bruchsteinstufe (untere Hälfte, mit Wasser gefüllt)"
+        return "Bruchsteinstufe (obere Hälfte, Balkonboden)"
+    return _ITEM[b.id]
+
+
 def materials(m: Model) -> Counter:
-    return Counter(_ITEM[b.id] for b in m.blocks.values())
+    return Counter(_item(b) for b in m.blocks.values())
 
 
 def extras(m: Model) -> Counter:
@@ -32,7 +42,10 @@ def extras(m: Model) -> Counter:
     c["Wassereimer (für die Wasserstufen; mit Endlosquelle reichen 2)"] = 2
     c["Weizensamen zum ersten Bepflanzen (ein Teil reicht, die Bauern pflanzen nach)"] = sum(
         1 for b in m.blocks.values() if b.id == "farmland")
-    c["Dorfbewohner: 4 Bauern (oder ohne Beruf, sie nehmen den Komposter) + 4 Sammler (beliebig)"] = 8
+    farmers = len(m.notes["lamp"])
+    collectors = len(m.notes["cell"])
+    c[f"Dorfbewohner: {farmers} Bauern (oder ohne Beruf, sie nehmen den Komposter) + {collectors} Sammler (beliebig)"] = \
+        farmers + collectors
     return c
 
 
@@ -42,3 +55,4 @@ def iron(c: Counter) -> int:
 
 def copper(c: Counter) -> int:
     return sum(c[k] * v for k, v in COPPER.items())
+

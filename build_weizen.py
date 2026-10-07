@@ -4,7 +4,7 @@ from pathlib import Path
 from farm import litematic
 from weizenfarm import checks, materials, model
 
-OUT = Path(__file__).parent / "schematics" / "Weizenfarm_4_Bauern.litematic"
+OUT = Path(__file__).parent / "schematics" / "Weizenfarm_Hochhaus_14_Bauern.litematic"
 
 
 def main() -> None:
@@ -15,9 +15,9 @@ def main() -> None:
     OUT.parent.mkdir(exist_ok=True)
     litematic.write(
         m, OUT,
-        name="Weizenfarm 4 Bauern",
+        name="Weizenfarm Hochhaus 14 Bauern",
         author="fluegelflitzer",
-        description="Dorfbewohner-Weizen-/Brotfarm, 4 Glasmodule mit Sammler, Minecraft Java 26.3 (31x31)",
+        description="Dorfbewohner-Weizen-/Brotfarm, 7 Etagen, 14 Bauern + 7 Sammler, Minecraft Java 26.3 (32x16x23)",
     )
     size, blocks = litematic.read_blocks(OUT)
     assert size == m.size and blocks == m.blocks, "Rücklese-Prüfung fehlgeschlagen"

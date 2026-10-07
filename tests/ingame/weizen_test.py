@@ -110,7 +110,7 @@ def status(r, m) -> dict:
     chest = Counter()
     for pos in m.notes["chest"]:
         chest += chest_items(r, pos)
-    area = box((0, 0, 0), (m.size[0], 4, m.size[2]))
+    area = box((0, 0, 0), m.size)
     vs = villagers(r)
     return {"kiste": dict(chest), "berufe": dict(Counter(v[0] for v in vs)),
             "items_liegen": count(r, f"@e[type=minecraft:item,{area}]"),
@@ -153,6 +153,8 @@ def run_days(r, m, args) -> None:
             print(f"Tag {day + 1}.{part + 1}:", json.dumps(st, ensure_ascii=False, default=str), flush=True)
     for v in villagers(r):
         print("  ", v)
+    for pos in m.notes["chest"]:
+        print("   Kiste", pos, dict(chest_items(r, pos)))
 
 
 def main():

@@ -1,6 +1,6 @@
 # Brat-Tierfarm XL – Huhn, Kuh, Schwein (Minecraft Java 26.3, Litematica)
 
-> **Weitere Farm in diesem Repo:** [Weizenfarm mit 4 Bauern (Brot/Weizen, 2×2 Chunks)](WEIZENFARM.md)
+> **Weitere Farm in diesem Repo:** [Weizenfarm-Hochhaus mit 14 Bauern (Brot/Weizen, 2×1 Chunks, 23 hoch)](WEIZENFARM.md)
 
 Litematica-Vorlage für eine Survival-Farm. Sie tötet Tiere, ohne den Bestand zu verringern, und liefert
 das Fleisch **gleich gebraten**, weil die Tiere durch Lava sterben.
@@ -11,7 +11,7 @@ das Fleisch **gleich gebraten**, weil die Tiere durch Lava sterben.
 |---|---|
 | Minecraft | Java Edition **26.3** (Litematica-Format Version 7, DataVersion 5023) |
 | Größe | 16 × 13 × 32 Blöcke (genau **1 × 2 Chunks**, 13 hoch) |
-| Huhn | vollautomatisch: Eier → Spender → Küken → gebraten |
+| Huhn | vollautomatisch: Eier → Werfer → Küken → gebraten |
 | Kuh / Schwein | Futterstation: du fütterst per Rechtsklick, alles Weitere läuft automatisch |
 | Lager | je Tierart eigene Doppelkisten im Kellergang, kein Sortierer nötig |
 
@@ -90,9 +90,9 @@ y1/y0   2 Trichter → Doppelkiste (im Kellergang)
 ### Huhn: so funktioniert es
 
 - Die Zuchthennen stehen in einer Reihe aus 3 Trichtern (je Modul, Höhe y3). Ihre Eier laufen über die
-  Trichterkette in einen Spender.
-- Ein Komparator liest den Trichter über dem Spender. Jedes durchlaufende Ei erzeugt einen Puls, und der
-  Spender verschießt das vorherige Ei in die Kükenzelle. Die Schaltung kann nicht hängen bleiben.
+  Trichterkette in einen Werfer.
+- Ein Komparator liest den Trichter über dem Werfer. Jedes durchlaufende Ei erzeugt einen Puls, und der
+  Werfer verschießt das vorherige Ei in die Kükenzelle. Die Schaltung kann nicht hängen bleiben.
 - In der Kükenzelle stehen die Küken auf einer Steinsäge (9/16 hoch) unter einem Lavakessel. Küken
   passen darunter, ein ausgewachsenes Huhn ragt in den Kessel und stirbt gebraten.
 - Die Drops stoßen am Kesselboden an und fallen über 2 Trichter in die Doppelkiste.
@@ -119,7 +119,7 @@ y1/y0   2 Trichter → Doppelkiste (im Kellergang)
 | Leiter | 4 | |
 | Schleifstein | 2 | Tötungsstellen Kuh |
 | **Amboss** | **2** | **62 Eisen**, Tötungsstellen Schwein |
-| Spender | 2 | je 1 Bogen + 1 Redstone |
+| Werfer | 2 | je 7 Bruchstein + 1 Bogen + 1 Redstone (nicht verwechseln mit dem Spender ohne Bogen – der lässt Eier nur fallen) |
 | **Komparator** | **2** | **2 Netherquarz** |
 | Redstone-Staub | 2 | |
 

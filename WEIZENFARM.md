@@ -1,23 +1,23 @@
-# Weizenfarm mit 4 Bauern – Brot und Weizen vollautomatisch (Minecraft Java 26.3, Litematica)
+# Weizenfarm-Hochhaus – 14 Bauern, Brot und Weizen vollautomatisch (Minecraft Java 26.3, Litematica)
 
 Litematica-Vorlage für eine Dorfbewohner-Farm nach der Idee aus dem Video
 [„WEIZEN FARM“ (ErikOnHisPeriod, Design Qix)](https://www.youtube.com/watch?v=XMGt4UanPsQ):
-Bauern ernten, pflanzen nach, backen Brot und werfen ihren Überschuss einem anderen Dorfbewohner zu –
-diese Würfe landen in Kisten.
+Bauern ernten, pflanzen nach, backen Brot und werfen ihren Überschuss einem anderen Dorfbewohner zu.
+Diese Würfe landen in Kisten.
 
-**Datei:** [`schematics/Weizenfarm_4_Bauern.litematic`](schematics/Weizenfarm_4_Bauern.litematic)
+**Datei:** [`schematics/Weizenfarm_Hochhaus_14_Bauern.litematic`](schematics/Weizenfarm_Hochhaus_14_Bauern.litematic)
 
 | | |
 |---|---|
 | Minecraft | Java Edition **26.3** (Litematica-Format Version 7, DataVersion 5023) |
-| Größe | 31 × 5 × 31 Blöcke – passt in **2 × 2 Chunks**, nur **4 hoch** (+ Blitzableiter) |
-| Ertrag | im Dauertest ≈ **120 Brot + 60 Weizen pro Stunde** (Echtzeit, Farm geladen) |
-| Lager | 4 Kisten, von außen durch ein Loch in der Wand zu leeren |
-| Eisen | 40 (8 Trichter) |
-| Dorfbewohner | 8: 4 Bauern + 4 „Sammler“ (beliebige Dorfbewohner) |
+| Größe | 32 × 23 × 16 Blöcke: genau **2 × 1 Chunks**, **23 hoch**, **7 Etagen** |
+| Dorfbewohner | 21: **14 Bauern** (2 pro Etage) + **7 Sammler** (1 pro Etage, mittig) |
+| Ertrag | im Test ≈ **480 Brot + 110 Weizen pro Stunde** (Echtzeit, Farm geladen) |
+| Lager | 14 Kisten (je Bauer eine, direkt neben dem Sammler) |
+| Eisen | 70 (14 Trichter) |
 
 > **Stand: im Spiel getestet.** Die Farm wurde auf einem echten 26.3-Server Block für Block gebaut,
-> zurückgelesen (0 Abweichungen) und mit echten Dorfbewohnern 23 Spieltage im Zeitraffer betrieben –
+> zurückgelesen (0 Abweichungen) und mit 14 Bauern und 7 Sammlern im Zeitraffer betrieben.
 > Ergebnisse unter [Getestet](#6-getestet-auf-einem-echten-263-server).
 
 ---
@@ -25,53 +25,56 @@ diese Würfe landen in Kisten.
 ## 1. So funktioniert sie
 
 ```
- Draufsicht (ein Modul, Nordwest; die anderen drei sind gespiegelt)
+ Draufsicht einer Etage (Norden oben, x 0–31 nach rechts)
 
-   #######o########     o  Loch in der Außenwand, dahinter die Kiste (von außen öffnen)
-   #.....#S#......#     S  Sammler (Dorfbewohner), steht auf der Kiste; # daneben Glas 2 hoch
-   #.....#T#......#     T  Schlitz-Trichter (fängt die Würfe) -> Trichter darunter -> Kiste
-   #......B.......#        # neben T: Glas 1 hoch | B: hier steht der Bauer beim Zuwerfen
-   #...~......~...#     ~  Wasser (obere Bruchsteinstufe, mit Wasser gefüllt)
-   #..............#     .  Acker mit Weizen
-   #..............#
-   #......C.......#     C  Kompostierer (Arbeitsplatz des Bauern), darüber Leuchtstein
-   #..............#
-   Z..............#     Z  Zauntor (Eingang für dich)
-   #..............#
-   #...~......~...#
-   #..............#
-   #..............#
-   #..............#
-   ################     # Glas (Wände 3 hoch, Dach aus Glas)
+   ################################
+   #L.............##.............L#      Westmodul (14 × 13)  |  Ostmodul (14 × 13)
+   #..........L...##...L..........#
+   #..............##..............#      .  Acker mit Weizen
+   #...~......~...##...~......~...#      ~  Wasser (untere Bruchsteinstufe, mit Wasser gefüllt)
+   #..L...........##...........L..#      L  Kürbislaterne im Acker (Licht für den Weizen)
+   #.............###..............#      C  Kompostierer (Arbeitsplatz des Bauern), darüber Kürbislaterne
+   #.......C.....TST.....C........#      S  Sammler in seiner Zelle, T Schlitz-Trichter links/rechts
+   #.............K#K..............#      K  Kiste (Trichter füllt hinein); # neben S/T/K: Glas
+   #............L.##.L............#      Der Bauer steht beim Zuwerfen direkt vor seinem T.
+   #...~......~...##...~......~...#
+   #........L.....##......L.......#
+   #L.............##.............L#
+   #..............##..............#
+   ############Z######Z############      Z  Zauntor zum Balkon
+   H===============================      =  Balkon (obere Bruchsteinstufen), H Leiter
 ```
 
-1. **Ernten und Backen:** In jedem der 4 Glasmodule arbeitet genau ein Bauer. Er erntet reifen
-   Weizen, pflanzt nach und backt am Kompostierer Brot (3 Weizen → 1 Brot), solange er höchstens
-   36 Brot trägt. Überzählige Samen kompostiert er; das Knochenmehl streut er selbst auf das Feld.
+1. **Ernten und Backen:** In jedem Modul arbeitet genau ein Bauer. Er erntet reifen Weizen, pflanzt
+   nach und backt am Kompostierer Brot (3 Weizen → 1 Brot), solange er höchstens 36 Brot trägt.
+   Überzählige Samen kompostiert er; das Knochenmehl streut er selbst auf das Feld.
 2. **Abgeben:** Trifft ein Bauer einen anderen Dorfbewohner, wirft er ihm **alles Brot über 24 Stück**
-   und **die Hälfte seines Weizens ab 33 Stück** zu (Spielmechanik „Essen teilen“). Dieser andere
-   Dorfbewohner ist der **Sammler**: Er sitzt in einer engen Zelle an der Außenwand.
-3. **Der Sichtschlitz:** Vor der Zelle steht ein Trichter in Feldhöhe, darüber ist bis zum Glasdach
-   **1 Block Luft**. Durch diesen Schlitz sehen sich Bauer und Sammler (beide haben die Augen auf
-   1,62 Blöcken Höhe), aber kein Dorfbewohner passt hindurch (sie brauchen 1,95 Blöcke).
-   Der Bauer stellt sich direkt vor den Trichter und wirft – die Würfe landen auf dem Trichter.
-4. **Einsaugen:** Geworfene Items darf 10 Ticks lang niemand aufheben. Der Trichter saugt sie
-   innerhalb von höchstens 8 Ticks ein und gibt sie über einen zweiten Trichter in die Kiste unter
-   dem Sammler. Fällt ein Wurf zu kurz, hebt der Bauer ihn wieder auf und wirft ihn beim nächsten
-   Treffen erneut – es geht nichts verloren.
+   und **die Hälfte seines Weizens ab 33 Stück** zu. Dieser andere Dorfbewohner ist der **Sammler**.
+   Er sitzt in einer engen Zelle mitten in der Trennwand, also genau zwischen den beiden Bauern der Etage.
+3. **Die Sichtschlitze:** Links und rechts der Zelle steht je ein Trichter auf Feldhöhe. Darüber ist bis
+   zur Decke **1 Block Luft**. Durch diese Schlitze sehen die Bauern den Sammler (Augenhöhe 1,62), aber
+   kein Dorfbewohner passt hindurch (er braucht 1,95 Blöcke). Der Bauer stellt sich vor seinen Trichter
+   und wirft, die Würfe landen auf dem Trichter.
+4. **Einsaugen:** Geworfene Items darf 10 Ticks lang niemand aufheben. Der Trichter saugt sie innerhalb
+   von höchstens 8 Ticks ein und gibt sie in die Kiste neben sich. Fällt ein Wurf zu kurz, hebt der
+   Bauer ihn wieder auf und wirft ihn beim nächsten Mal erneut. Es geht nichts verloren.
 
-**Warum getrennte Module?** Das war die wichtigste Erkenntnis aus dem Test: Sehen sich zwei Bauern,
-versuchen sie sich zu vermehren. Ohne Betten scheitert das, aber **jeder Versuch kostet beide je
-3 Brot** – in einem gemeinsamen Feld kam deshalb **kein einziges Brot** in der Kiste an. Die Sammler
-haben kein Essen und vermehren sich daher nie; die Glaswände sorgen dafür, dass jeder Bauer nur
-seinen eigenen Sammler sieht.
+**Warum getrennte Module?** Kommen zwei Bauern nah aneinander heran, versuchen sie sich zu vermehren.
+Ohne Betten scheitert das, aber **jeder Versuch kostet beide je 3 Brot**. Gegessen wird nur, wenn die
+beiden höchstens 2,24 Blöcke voneinander entfernt sind. Durch die Sammler-Zelle sehen sich die zwei
+Bauern einer Etage zwar, kommen aber nie näher als 3,6 Blöcke aneinander heran. Deshalb reicht
+**ein Sammler für zwei Bauern**. Etagen sind durch massive Decken getrennt. Der Sammler hat kein
+Essen und vermehrt sich nie.
 
-**Unterschiede zum Video:** Das Video baut 4 runde Glaskuppeln um eine Mitte mit Glocke und Wassergraben
-und arbeitet mit umbenannter Roter Bete im Inventar der Dorfbewohner. Diese Vorlage nutzt dasselbe Grundprinzip
-(4 getrennte Bauern, Brot über Weitergabe einsammeln), aber in einer eckigen, am Code von 26.3
-geprüften Form: eine Sammler-Zelle mit Sichtschlitz pro Modul statt der gemeinsamen Mitte, keine
-Glocke (die Bauern tauschen in ihrer Freizeit, dafür braucht es keinen Treffpunkt) und keine
-umbenannten Items. Damit passt die Farm in 31 × 31 × 5 und braucht nur 8 Trichter.
+**Licht und Wasser:** In den unteren Etagen kommt kein Himmelslicht von oben. Kürbislaternen im Acker
+sorgen dafür, dass jedes Feld mindestens Licht 9 hat (sonst wächst Weizen nicht). Das ist berechnet,
+ohne das Licht durch die Glaswände mitzuzählen. Das Wasser steckt in **unteren** Bruchsteinstufen:
+Der Acker einer Etage ist die Decke der Etage darunter, und eine obere Stufe würde nach unten auslaufen.
+
+**Unterschiede zum Video:** Das Video baut 4 runde Glaskuppeln um eine Mitte mit Glocke und arbeitet
+mit umbenannter Roter Bete. Diese Vorlage nutzt dasselbe Grundprinzip in einer gestapelten, am Code
+von 26.3 geprüften Form: 7 Etagen à 2 Bauern, ein Sammler pro Etage, keine Glocke, keine
+umbenannten Items.
 
 ---
 
@@ -79,133 +82,134 @@ umbenannten Items. Damit passt die Farm in 31 × 31 × 5 und braucht nur 8 Trich
 
 1. Litematica + MaLiLib für 26.3 installieren, die `.litematic` nach `.minecraft/schematics/` kopieren.
 2. Im Spiel: `M` → *Load Schematics* → Datei wählen → *Load*.
-3. Platzierung so verschieben, dass
-   - **Ebene 0 (der Acker) auf Bodenhöhe** liegt: Der Acker ersetzt die oberste Gras-/Erdschicht,
-     du kannst das Gras direkt mit der Hacke bearbeiten. Unter der Farm muss nichts gebaut werden.
-   - die Farm in **4 Chunks** liegt: Ecke an eine Chunkgrenze legen (`F3 + G` zeigt die Grenzen).
-     So ist die ganze Farm geladen, sobald du in der Nähe bist.
-4. Drehen/Spiegeln ist erlaubt. Die Kisten sitzen dann an den entsprechenden Seiten.
-
----
+3. Platzierung:
+   - **Ebene 0** (Acker der untersten Etage) **auf Bodenhöhe**: Der Acker ersetzt die oberste Gras- bzw.
+     Erdschicht.
+   - Die Farm genau in **2 Chunks** legen: Ecke an eine Chunkgrenze (`F3 + G`), die lange Seite (32)
+     entlang der Chunkreihe.
+4. Drehen/Spiegeln ist erlaubt. Der Balkon (eigentlich Südseite) liegt dann entsprechend anders.
 
 ## 3. Bau-Reihenfolge
 
-1. **Acker und Wasser:** Boden einebnen, Acker hacken. An den 16 Wasserstellen (`~`) eine
-   **obere** Bruchsteinstufe setzen und mit einem Wassereimer füllen (mit einer Endlosquelle
-   reichen 2 Eimer). Die Bauern laufen darüber.
-2. **Wände:** Außenwände und das Trennkreuz in der Mitte aus Glas, **3 Blöcke hoch**. Die Trennwände
-   dürfen keine Lücke haben – die Bauern dürfen sich nicht sehen. Je Modul ein Zauntor als Eingang
-   (Dorfbewohner öffnen keine Zauntore).
-3. **Lampen:** In der Modulmitte Bruchstein in den Acker, Kompostierer darauf, Leuchtstein darüber.
-4. **Sammler-Zellen** (je Modul, an der Außenwand):
-   - **Kiste** in die Ackerebene, Vorderseite nach außen. Den Wandblock davor **weglassen**
-     (das ist das Loch, durch das du die Kiste öffnest).
-   - **Trichter** feldseitig vor die Kiste, auf die Kiste zeigend (Schleichen + auf die Kiste klicken).
-   - **Schlitz-Trichter** auf diesen Trichter, nach unten zeigend (auf die Oberseite des unteren
-     Trichters klicken).
-   - **Glas:** links und rechts neben der Zelle je 2 hoch, links und rechts neben dem Schlitz-Trichter
-     je 1 hoch. **Über dem Schlitz-Trichter bleibt Luft bis zum Dach** – das ist der Sichtschlitz.
-5. **Dach** aus Glas über alles (Ebene 3), **Blitzableiter** auf die Dachmitte. Ein Blitz verwandelt
-   Dorfbewohner in Hexen; der Blitzableiter fängt alle Blitze im Umkreis von 128 Blöcken.
-6. **Weizen pflanzen:** das ganze Feld mit Weizensamen bepflanzen. Die Bauern pflanzen danach selbst
-   nach, auf ein leeres Feld setzen sie aber nur ~10 Samen, weil sie den Rest kompostieren.
+Am einfachsten **Etage für Etage von unten nach oben**, und jede Etage gleich mit Dorfbewohnern
+besetzen, bevor die nächste darüber kommt (siehe 4.).
+
+1. **Acker, Wasser, Licht:** Acker hacken. Auf die 4 Wasserstellen pro Modul eine **untere**
+   Bruchsteinstufe setzen und mit dem Wassereimer füllen. Kürbislaternen an ihre Stellen im Acker setzen.
+2. **Wände:** Außenwände und die doppelte Trennwand aus Glas, je Etage 3 Blöcke hoch. Die Trennwand darf
+   außer an der Sammler-Zelle keine Lücke haben.
+3. **Lampe:** Bruchstein in den Acker, Kompostierer darauf, Kürbislaterne darüber (bis an die Decke).
+4. **Sammler-Zelle** (Etagenmitte, in der Trennwand):
+   - Zellenboden: Erde. Vor und hinter der Zelle je 2 Glas übereinander.
+   - Links und rechts der Zelle je ein **Trichter**, der in die **Kiste** daneben zeigt (Schleichen + auf
+     die Kiste klicken). Auf der anderen Seite des Trichters 1 Glas.
+   - Über Trichter, Glas und Kiste bleibt **Luft bis zur Decke**: das ist der Sichtschlitz.
+5. **Decke:** Die nächste Etage (ihr Acker) ist die Decke. Über der obersten Etage Glasdach und
+   Blitzableiter. Ein Blitz verwandelt Dorfbewohner in Hexen; der Blitzableiter fängt alle Blitze im
+   Umkreis von 128 Blöcken.
+6. **Balkon und Leiter:** Auf jeder Etage eine Reihe oberer Bruchsteinstufen vor der Südwand, Leiter am
+   Westende, je Modul ein Zauntor in der Südwand (darüber frei für deinen Kopf).
+7. **Weizen pflanzen:** jedes Feld bepflanzen. Die Bauern pflanzen danach selbst nach. Auf ein leeres
+   Feld setzen sie nur ~10 Samen, weil sie den Rest kompostieren.
 
 ## 4. Dorfbewohner einsetzen
 
-- **Sammler (4×):** Die beiden Glasblöcke der Außenwand über dem Kistenloch entfernen, einen beliebigen
-  Dorfbewohner (ohne Beruf, Nitwit oder mit Beruf – egal) mit Lore oder Boot hineinbringen, bis er
-  auf der Kiste steht, Glas wieder einsetzen. Er kann von dort keinen Arbeitsblock erreichen und
-  nimmt daher keinem Bauern den Kompostierer weg.
-- **Bauern (4×, genau einer pro Modul):** durch das Zauntor mit Lore oder Boot ins Modul bringen.
-  Ein Dorfbewohner ohne Beruf nimmt den Kompostierer und wird Bauer.
-- Eine Glocke oder Betten braucht die Farm nicht.
+- **Pro Etage:** 2 Bauern (je einer pro Modul) und 1 Sammler.
+- **Sammler:** Glasblock vor oder hinter der Zelle (2 hoch) entfernen, einen beliebigen Dorfbewohner (ohne
+  Beruf, Nitwit oder mit Beruf, egal) mit Lore oder Boot hineinbringen, Glas wieder einsetzen. Er
+  erreicht von dort keinen Arbeitsblock und nimmt daher keinem Bauern den Kompostierer weg.
+- **Bauern:** durch das Zauntor ins Modul bringen. Ein Dorfbewohner ohne Beruf nimmt den Kompostierer
+  und wird Bauer. **Niemals zwei Bauern in ein Modul.**
+- **Nach oben bringen:** Dorfbewohner können keine Leitern steigen. Am einfachsten setzt du jede Etage
+  ein, solange sie noch oben offen ist. Die Dorfbewohner bringst du dafür mit einer Lore auf einer
+  provisorischen Schienenrampe außen an der Farm nach oben. Die Rampe baust du danach wieder ab.
+- Glocke oder Betten braucht die Farm nicht.
 
 ## 5. Betrieb
 
-- Die Kisten (je 27 Plätze ≈ 1 700 Items) **regelmäßig leeren**. Ist eine Kiste voll, staut sich der
-  Trichter; dann hebt der Bauer seine Würfe wieder auf (kein Verlust), aber auch der Sammler kann
-  Brot aufheben – und mit Brot im Inventar könnten Bauer und Sammler Brot bei Vermehrungsversuchen essen.
+- **Kisten leeren:** je Modul eine Kiste direkt neben dem Sammler (27 Plätze ≈ 1 700 Items), vom Modul
+  aus zu öffnen. Rein über den Balkon und das Zauntor. Ist eine Kiste voll, staut sich der Trichter;
+  dann hebt der Bauer seine Würfe wieder auf (kein Verlust).
 - Die Farm arbeitet nur, solange ihre Chunks geladen sind (du bist in Simulationsdistanz).
-- **Anlaufzeit:** Die Bauern werfen erst, wenn sie über 24 Brot bzw. über 32 Weizen tragen – das erste
+- **Anlaufzeit:** Die Bauern werfen erst, wenn sie über 24 Brot bzw. über 32 Weizen tragen. Das erste
   Brot kommt nach etwa 3 Spieltagen (1 Spieltag = 20 Minuten).
 
 ---
 
 ## 6. Getestet auf einem echten 26.3-Server
 
-Testumgebung wie bei der Tierfarm: headless 26.3-Server, Farm per `/setblock` gebaut, Blöcke aus den
-Regionsdateien zurückgelesen, dann im Zeitraffer (`/tick sprint`) mit echten Dorfbewohnern betrieben.
+Headless 26.3-Server, Farm per `/setblock` gebaut, Blöcke aus den Regionsdateien zurückgelesen, dann im
+Zeitraffer (`/tick sprint`) mit echten Dorfbewohnern betrieben.
 
-Feld zu Beginn voll bepflanzt (Weizen in zufälligem Alter), 4 Bauern + 4 Sammler, Zahlen jeweils zur
+Feld zu Beginn voll bepflanzt (Weizen in zufälligem Alter), 14 Bauern + 7 Sammler, Zahlen jeweils zur
 Mittagszeit des Spieltags:
 
 | Spieltag | Kisten: Brot | Kisten: Weizen | Brot / Weizen bei den Bauern | bei den Sammlern | liegende Items |
 |---:|---:|---:|---|---|---:|
-| 1 | 0 | 0 | 19 / 22 | leer | 0 |
-| 3 | 2 | 0 | 95 / 50 | leer | 0 |
-| 5 | 109 | 0 | 85 / 36 | leer | 1 |
-| 10 | 296 | 103 | 88 / 84 | leer | 0 |
-| 15 | 525 | 188 | 85 / 64 | leer | 0 |
-| 20 | 717 | 316 | 88 / 86 | leer | 0 |
-| 23 | **824** | **372** | 106 / 71 | leer | 2 |
+| 1 | 0 | 0 | 68 / 58 | leer | 0 |
+| 2 | 0 | 0 | 195 / 151 | leer | 1 |
+| 3 | 14 | 21 | 330 / 136 | leer | 2 |
+| 4 | 154 | 21 | 334 / 191 | 1 Weizen | 0 |
+| 5 | 312 | 64 | 318 / 215 | 1 Weizen | 2 |
+| 6 | 488 | 109 | 310 / 130 | 1 Weizen | 0 |
+| 7 | **633** | **130** | 306 / 169 | 1 Weizen | 0 |
 
 - **Bau:** 0 Befehle ohne Wirkung, Rücklesen aus den Regionsdateien: **0 Abweichungen**.
-- **Dauerleistung** (Tag 6 bis 23): **≈ 41 Brot + 21 Weizen pro Spieltag**, also ≈ 120 Brot + 60 Weizen
-  pro Stunde Echtzeit. Alle 4 Kompostierer blieben die ganze Zeit von ihren 4 Bauern besetzt.
-- **Nichts geht verloren:** Die Sammler hatten nie etwas im Inventar, es lagen fast keine Items herum
-  (frische Ernte, die der Bauer gleich aufhebt).
-- **Vergleich, warum getrennte Module:** Mit 4 Bauern in *einem* Feld kamen in 10 Spieltagen
-  **0 Brot** an – die Bauern aßen ihr Brot bei Vermehrungsversuchen.
-- Eine Vorversion mit gleicher Mechanik (zusätzliche Erdschicht unter dem Acker) lief 16 Spieltage:
-  557 Brot + 263 Weizen.
+  Der erste Testbau hatte noch *obere* Wasserstufen; deren Wasser lief in die Etage darunter. Seitdem
+  sind es untere Stufen.
+- **Alle 14 Kompostierer** wurden sofort von den 14 Bauern belegt, die 7 Sammler blieben ohne Beruf.
+- **Leistung** (Tag 4 bis 7): ≈ 160 Brot + 36 Weizen pro Spieltag, also ≈ 480 Brot + 110 Weizen pro
+  Stunde Echtzeit.
+- **Nichts geht verloren:** Fast keine Items lagen herum (frische Ernte, die der Bauer gleich aufhebt).
+  Ein Sammler hob einmal 1 Weizen auf (ein Wurf, der nicht auf dem Trichter landete). Weizen ist kein
+  Essen und stört nicht.
+- **Vergleich, warum getrennte Bauern:** Mit 4 Bauern in *einem* Feld kamen in 10 Spieltagen
+  **0 Brot** an, weil die Bauern ihr Brot bei Vermehrungsversuchen aßen.
 
 ---
 
 ## Grenzen
 
-- **Der Ertrag hängt an der Bauern-KI, nicht am Feld.** Im Test standen meist über die Hälfte der
-  Pflanzen reif auf dem Feld; ein Bauer erntet nur einen Teil davon. Mehr Ertrag gibt es nur mit mehr
-  Bauern (z. B. eine zweite Farm), nicht mit mehr Acker.
-- **Bauern horten Samen** (im Test 100–220 Stück, mehrere Inventarplätze). Das blieb über den ganzen
-  Test stabil. Liefert ein Bauer trotzdem einmal dauerhaft nichts mehr (etwa weil sein Inventar so voll
-  Samen ist, dass kein Platz für Weizen bleibt), ersetze ihn durch einen neuen Dorfbewohner.
-- **Niemals zwei Bauern in ein Modul** und keine Lücken in den Trennwänden – sonst essen sie das Brot
-  bei Vermehrungsversuchen.
-- Weitere Dorfbewohner in der Nähe stören nicht, solange sie nicht in die Module gelangen.
+- **Der Ertrag hängt an der Bauern-KI, nicht am Feld.** Ein Bauer erntet nur einen Teil der reifen
+  Pflanzen. Mehr Ertrag gibt es nur mit mehr Bauern.
+- **Bauern horten Samen** (100–220 Stück, mehrere Inventarplätze). Das blieb im Test stabil. Liefert
+  ein Bauer dauerhaft nichts mehr (etwa weil sein Inventar voller Samen ist und kein Platz für Weizen
+  bleibt), ersetze ihn durch einen neuen Dorfbewohner.
+- **Niemals zwei Bauern in ein Modul** und keine Lücke in der Trennwand außer der Sammler-Zelle. Sonst
+  kommen sich die Bauern nahe genug, um ihr Brot bei Vermehrungsversuchen zu essen.
 - Was der Zeitraffer-Test nicht abdeckt: Bauen in Survival (Litematica zeigt dir jeden Block an),
-  Transport der Dorfbewohner, Spieler-Interaktion (Handel mit den Bauern ist erlaubt, ändert nichts).
+  Transport der Dorfbewohner.
 
 ---
 
 ## Selbst nachprüfen
 
 ```bash
-python3 build_weizen.py                    # Prüfungen + .litematic + Materialliste
+python3 build_weizen.py                                              # Prüfungen + .litematic + Materialliste
 python3 tests/ingame/weizen_test.py --server-dir <server> build              # bauen + zurücklesen
-python3 tests/ingame/weizen_test.py --server-dir <server> sim --plant --days 30   # Dauertest
+python3 tests/ingame/weizen_test.py --server-dir <server> sim --plant --days 12   # Dauertest
 ```
 
-`weizenfarm/model.py` beschreibt die Farm, `weizenfarm/checks.py` prüft statisch (Blockzustände 26.3,
-Größe ≤ 2×2 Chunks und ≤ 24 hoch, jedes Feld bewässert und frei, kein dunkler Spawnplatz,
-Sammler-Zellen dicht mit offenem Sichtschlitz).
+`weizenfarm/model.py` beschreibt die Farm, `weizenfarm/checks.py` prüft statisch: Blockzustände 26.3,
+Größe ≤ 2×1 Chunks und ≤ 23 hoch, jedes Feld bewässert und frei, Licht ≥ 9 auf jedem Feld (nur
+Blocklicht), keine dunkle Stelle für Monster, Sammler-Zellen dicht mit offenen Sichtschlitzen.
 
 ## Materialliste
 
 | Menge | Material |
 |---:|---|
-| 1504 | Glas (Dach 961, Wände) |
-| 740 | Ackerboden (Erde/Gras mit der Hacke) |
-| 16 | Bruchsteinstufe (obere Hälfte, mit Wasser gefüllt) + 2 Wassereimer |
-| 16 | Erde (unter den Zellenwänden) |
-| 8 | Trichter (= **40 Eisen**) |
-| 4 | Kiste |
-| 4 | Komposter |
-| 4 | Leuchtstein (Block) |
-| 4 | Bruchstein |
-| 4 | Eichenzauntor |
+| 2 850 | Glas (Wände und Dach; die Außenwände dürfen auch aus Bruchstein o. Ä. sein) |
+| 2 373 | Ackerboden (Erde mit der Hacke) |
+| 217 | Bruchsteinstufe, obere Hälfte (Balkonboden) |
+| 98 | Kürbislaterne (Kürbis + Fackel) |
+| 56 | Bruchsteinstufe, untere Hälfte, mit Wasser gefüllt (+ 2 Wassereimer, Endlosquelle) |
+| 49 | Erde (unter Trichtern, Kisten und Zellen) |
+| 19 | Leiter |
+| 14 | **Trichter** (= **70 Eisen**) |
+| 14 | Kiste |
+| 14 | Komposter |
+| 14 | Bruchstein (unter den Kompostierern) |
+| 14 | Eichenzauntor |
 | 1 | Blitzableiter (3 Kupferbarren) |
-| bis 740 | Weizensamen zum ersten Bepflanzen |
-| 8 | Dorfbewohner (4 Bauern + 4 Sammler) |
-
-Glas lässt sich bei den Wänden durch jeden anderen vollen Block ersetzen (z. B. Bruchstein) – wichtig
-ist nur, dass die Trennwände lückenlos sind. Das Dach muss bleiben: Es bildet den Sichtschlitz.
+| bis 2 373 | Weizensamen zum ersten Bepflanzen |
+| 21 | Dorfbewohner (14 Bauern + 7 Sammler) |

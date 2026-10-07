@@ -231,7 +231,7 @@ def breeding_section(m: Model, z0: int, species: str) -> None:
 # --------------------------------------------------------------------------- Huhn
 
 def chicken_module(h: Half) -> None:
-    """Brutmodul: 3 Zuchttrichter -> Spender -> Kükenzelle 1x2 (Steinsäge unter Lavakessel)."""
+    """Brutmodul: 3 Zuchttrichter -> Werfer -> Kükenzelle 1x2 (Steinsäge unter Lavakessel)."""
     z = CHICKEN_Z
     # Kükenzelle
     h.set(5, 2, z - 1, B("dispenser", facing="south"))
@@ -252,7 +252,7 @@ def chicken_module(h: Half) -> None:
     h.note("chicken_chest", 6, 0, z)
     h.note("chicken_chest", 6, 0, z + 1)
     h.set(4, 1, z, COBBLE)
-    # Zuchttrichter (Hennen stehen darin) -> Spender
+    # Zuchttrichter (Hennen stehen darin) -> Werfer (dispenser)
     h.set(5, 3, z - 1, B("hopper", facing="down"))
     h.set(4, 3, z - 1, B("hopper", facing="east"))
     h.set(3, 3, z - 1, B("hopper", facing="east"))
@@ -260,7 +260,7 @@ def chicken_module(h: Half) -> None:
         h.note("chicken_breeder", x, 4, z - 1)
     h.set(3, 2, z - 1, COBBLE)
     h.set(4, 2, z - 1, COBBLE)
-    # Takt: Komparator liest den Zuchttrichter -> Block -> Staub darunter -> Block neben dem Spender
+    # Takt: Komparator liest den Zuchttrichter -> Block -> Staub darunter -> Block neben dem Werfer
     h.set(5, 3, z - 2, B("comparator", facing="south"))
     h.set(5, 2, z - 2, COBBLE)
     h.set(5, 3, z - 3, COBBLE)

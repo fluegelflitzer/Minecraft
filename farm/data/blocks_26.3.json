@@ -289,6 +289,19 @@
    ]
   }
  },
+ "minecraft:jack_o_lantern": {
+  "default": {
+   "facing": "north"
+  },
+  "properties": {
+   "facing": [
+    "north",
+    "south",
+    "west",
+    "east"
+   ]
+  }
+ },
  "minecraft:ladder": {
   "default": {
    "facing": "north",
