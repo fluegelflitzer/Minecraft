@@ -1,14 +1,17 @@
 """Ingame-Test der Farm auf einem headless Minecraft-26.3-Server (per RCON).
 
 Ablauf:
-  build    – Farm per /setblock bauen (Flüssigkeiten zuletzt), per Strukturblock zurücklesen
+  build    – Farm per /setblock bauen (Flüssigkeiten zuletzt), aus den Region-Dateien zurücklesen
              und Block für Block mit dem Modell vergleichen.
+  fire     – Brandtest: Feuer überall erlaubt, Zufallsticks stark erhöht.
   sim      – Tiere einsetzen, „füttern“ (InLove), /tick sprint, danach Kisten, Tiere, Feuer und
              Blöcke prüfen.
+  bilanz   – genaue Zählung je Tierart: Geburten, erwachsen geworden, als Baby gestorben.
+  all      – build, fire und sim nacheinander.
 
-Server vorbereiten: siehe README (Abschnitt „Test“). Aufruf:
-  python3 tests/ingame/run_test.py --server-dir <dir> build
-  python3 tests/ingame/run_test.py --server-dir <dir> sim
+Server vorbereiten: siehe README (Abschnitt „Für Bastler“). Aufruf:
+  python3 tests/ingame/run_test.py --server-dir <dir> all
+  python3 tests/ingame/run_test.py --server-dir <dir> bilanz
 """
 from __future__ import annotations
 
@@ -212,6 +215,61 @@ def sim(r, m: fm.Model, args) -> dict:
     return res
 
 
+def bilanz(r, m: fm.Model, args) -> dict:
+    """Genaue Bilanz je Tierart: Geburten, erwachsen geworden, als Baby gestorben.
+
+    Läuft mit erhöhter Tickrate statt /tick sprint, damit jedes Baby kurz vor dem Erwachsenwerden
+    (Age >= -400) gesehen und markiert wird. Verschwindet ein Baby ohne diese Markierung, ist es als
+    Baby gestorben (es hätte dann kein Fleisch geliefert)."""
+    for sp in ("cow", "pig", "chicken", "item"):
+        r.cmd(f"kill @e[type=minecraft:{sp}]")
+    r.cmd("scoreboard objectives remove age")
+    r.cmd("scoreboard objectives add age dummy")
+    before = {sp: sum((chest_items(r, p) for p in m.notes[f"{sp}_chest"]), Counter()) for sp in ("cow", "pig")}
+    for sp in ("cow", "pig"):
+        notes = m.notes[f"{sp}_pen"]
+        for (xa, y, z), (xb, _, _) in zip(notes[::2], notes[1::2]):
+            step = 1 if xb >= xa else -1
+            for x in range(xa, xb + step, step):
+                summon(r, sp, (x, y, z), '{Tags:["parent"]}')
+    births, grown = Counter(), Counter()
+
+    def sample():
+        for sp in ("cow", "pig"):
+            sel = f"@e[type=minecraft:{sp},tag=!parent"
+            births[sp] += count(r, f"{sel},tag=!b]")
+            r.cmd(f"tag {sel},tag=!b] add b")
+            r.cmd(f"execute as {sel},tag=b,tag=!near] store result score @s age run data get entity @s Age")
+            near = f"{sel},tag=b,tag=!near,scores={{age=-400..}}]"
+            grown[sp] += count(r, near)
+            r.cmd(f"tag {near} add near")
+
+    def run(ticks):
+        t_end = time.time() + ticks / args.rate
+        while time.time() < t_end:
+            sample()
+            time.sleep(0.2)
+
+    r.cmd(f"tick rate {args.rate}")
+    try:
+        for _ in range(args.rounds):
+            r.cmd("execute as @e[tag=parent] run data merge entity @s {Age:0,InLove:600}")
+            run(args.round_ticks)
+        run(args.final_ticks)
+        sample()
+    finally:
+        r.cmd("tick rate 20")
+    res = {}
+    for sp in ("cow", "pig"):
+        alive = count(r, f"@e[type=minecraft:{sp},tag=!parent]")
+        after = sum((chest_items(r, p) for p in m.notes[f"{sp}_chest"]), Counter())
+        res[sp] = {"geburten": births[sp], "erwachsen": grown[sp], "als_baby_gestorben": births[sp] - grown[sp] - alive,
+                   "noch_lebend": alive, "eltern": count(r, f"@e[type=minecraft:{sp},tag=parent]"),
+                   "kisten": dict(after - before[sp])}
+    print("Bilanz:", json.dumps(res, ensure_ascii=False))
+    return res
+
+
 def firetest(r, args) -> str:
     """Lava-Brandtest: Feuer überall erlauben (ohne Spieler breitet sich Feuer sonst nicht aus) und die
     Zufallsticks stark erhöhen, damit jede Lava viele hundert Mal versucht, etwas anzuzünden."""
@@ -229,7 +287,8 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--server-dir", required=True, type=Path)
     ap.add_argument("--password", default="farmtest")
-    ap.add_argument("step", choices=["build", "readback", "sim", "fire", "all"])
+    ap.add_argument("step", choices=["build", "readback", "sim", "fire", "bilanz", "all"])
+    ap.add_argument("--rate", type=int, default=200, help="Tickrate für die Bilanz")
     ap.add_argument("--random-tick-speed", type=int, default=1000)
     ap.add_argument("--fire-ticks", type=int, default=3000)
     ap.add_argument("--parents", type=int, default=10)
@@ -264,6 +323,8 @@ def main():
         print(f"Blöcke nach dem Test: {len(diffs)} Abweichungen")
         for d in diffs[:60]:
             print("  ", d)
+    if args.step == "bilanz":
+        bilanz(r, m, args)
 
 
 if __name__ == "__main__":

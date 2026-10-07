@@ -13,10 +13,11 @@ das Fleisch **gleich gebraten**, weil die Tiere durch Lava sterben.
 | Kuh / Schwein | Futterstation: du fütterst per Rechtsklick, alles Weitere läuft automatisch |
 | Lager | je Tierart eigene Doppelkisten im Kellergang, kein Sortierer nötig |
 
-> ⚠️ **Stand: Version 2, in Arbeit.** Die neue Tötungsstelle (Schleifstein bzw. Amboss) ist mit
-> einzelnen Tieren getestet, die Gesamtbilanz mit Babys steht noch aus (siehe
-> [Testergebnisse](#7-getestet-auf-einem-echten-263-server)). Mit dem Bau von Kuh- und Schweineseite
-> besser auf die fertige Version warten.
+> **Stand: Version 2, im Spiel getestet.** Die Farm wurde auf einem echten 26.3-Server Block für Block
+> gebaut und mit Tieren durchgespielt. Dabei gab es nur gebratenes Fleisch, keine verbrannten Drops,
+> kein als Baby gestorbenes Tier, kein Feuer und keine hängenden Tiere (Details unter
+> [Testergebnisse](#7-getestet-auf-einem-echten-263-server)). Was der automatische Test *nicht*
+> abdecken kann, steht unter [Grenzen](#grenzen).
 
 ---
 
@@ -53,8 +54,9 @@ y9      Boden der Zuchtgänge = offene Falltüren (Spalt 13/16)
         → Erwachsene (0,9 breit) stehen auf der Klappe, Babys (0,45) fallen sofort durch
 y8      Beckendecke mit Fallöffnung unter jedem Zuchtgang
 y6–7    Aufzuchtbecken: Babys wachsen hier auf. Darüber liegt die Wasserklinge (y7, fließt nach
-        Osten). Babys sind zu klein, um sie zu berühren. Ausgewachsene Tiere ragen hinein und werden
-        in den Graben geschoben.
+        Osten). Babys sind zu klein, um sie im Stehen zu berühren. Ausgewachsene Tiere ragen hinein und
+        werden in den Graben geschoben. (Springt ein Baby hinein, landet es auch im Strom und wartet
+        dort – siehe Tötungsstelle.)
 y3–6    Graben (x6 bzw. x9)
 y2      flacher Tötungsstrom → Tötungsstelle (siehe unten)
 y1/y0   2 Trichter → Doppelkiste (im Kellergang)
@@ -126,16 +128,20 @@ Glas und Wasser.
 
 1. **Von unten nach oben bauen.** Litematicas *Easy Place* sorgt für die richtige Ausrichtung von
    Falltüren, Schildern, Trichtern, Stufen und Kisten. Mit dem *Schematic Verifier* prüfen.
-2. **Falltüren genau wie in der Vorlage setzen.** Die Gitter-Falltüren der Zuchtgänge und Fallstreifen
-   sind *offen*. Die Stufen über dem letzten Stromfeld der Kühe sind *obere* Stufen.
-3. **Alles Trockene zuerst**: Schilder (Becken, Graben), Laternen, Mauern und Lesepulte an den
-   Tötungsstellen.
+2. **Ausrichtung genau wie in der Vorlage** (der Verifier zeigt Abweichungen):
+   - Die Gitter-Falltüren der Zuchtgänge und Fallstreifen sind *offen*.
+   - Über dem letzten Stromfeld der Kühe liegt eine *obere* Stufe.
+   - Die Schleifsteine (Kuh) stehen *auf dem Boden*, das Rad in Nord-Süd-Richtung.
+   - Die Ambosse (Schwein) liegen *quer* (Ost-West), sonst kommt das Schwein nicht an die Lava.
+   - Der Decken-Trichter über dem letzten Stromfeld der Schweine zeigt *zur Seite* in den Kern.
+3. **Alles Trockene zuerst**: Schilder (Becken, Graben) sowie Stufe, Trichter, Schleifstein und Amboss
+   an den Tötungsstellen.
 4. **Wasser setzen**:
    - Becken: Quellen an der Außenkante (x1 bzw. x14), aber nicht in den Fallstreifen.
    - Tötungsstrom: Quelle am Nordende.
    - Das fließende Wasser entsteht von selbst.
-5. **Lava ganz zum Schluss**: erst die 4 Tötungsstellen (über Mauer bzw. Lesepult), dann die 4 Kessel
-   befüllen.
+5. **Lava ganz zum Schluss**: erst die 4 Tötungsstellen (über Schleifstein bzw. Amboss), dann die
+   4 Kessel befüllen.
 6. Der Verifier zeigt fließendes Wasser erst grün, wenn es fertig geflossen ist.
 
 ## 5. Befüllen
@@ -164,7 +170,7 @@ eine Leiter mit Falltür bei x8/z27 auf die Galerie.
   - Füttern ist alle 5 Minuten möglich (Zucht-Abklingzeit).
   - Pro Fütterung entstehen etwa 8–10 Babys je Tierart. 20 Minuten später landen pro Tier im Schnitt
     2 gebratene Steaks bzw. Koteletts in der Kiste (Kuh zusätzlich 1 Leder).
-  - Wer alle 5 Minuten füttert, bekommt bis zu ~240 Steaks bzw. Koteletts pro Stunde und Tierart.
+  - Wer alle 5 Minuten füttert, bekommt etwa 200–240 Steaks bzw. Koteletts pro Stunde und Tierart.
 - **Huhn:** Läuft ab 6 Hennen pro Modul von allein.
   - Jede Henne legt etwa alle 5–10 Minuten ein Ei, aus jedem 8. Ei schlüpft ein Küken.
   - Mit ~60 Hennen pro Modul ergibt das rund 65 gebratene Hähnchen pro Stunde und Modul, dazu Federn.
@@ -188,11 +194,19 @@ zurückgelesen.
 | Datei unabhängig mit *litemapy* gelesen | ✅ 0 Abweichungen |
 | Brandtest: Feuer überall erlaubt, Zufallsticks ×333, 3000 Ticks (Kontrolle: Holz neben Lava brennt ab) | ✅ kein Feuer, keine Blockänderung |
 | Statische Prüfung: Wasser und Lava berühren sich nicht, keine Stelle, an der Lava Feuer legen kann | ✅ |
-| Kuh: Tod mit den Füßen bei höchstens 2,10, Drops bleiben unter der Lava | ✅ gemessen |
-| Schwein: Tod mit den Füßen bei höchstens 2,35, Drops bleiben unter der Lava | ✅ gemessen |
-| Drops pro Tier (Vorgänger-Tötungsstelle mit gleicher Decke, 115 Kühe / 40 Schweine) | ✅ im Erwartungswert, nur gebraten |
-| Babys, die in den Tötungsstrom geraten, überleben bis sie erwachsen sind | ⏳ noch nicht gemessen |
-| Gesamtsimulation mit Fütterungsrunden | ⏳ steht für die neue Tötungsstelle noch aus |
+| Kuh: Tod mit den Füßen bei höchstens 2,10 (Lava ab 3,0), Drops kommen höchstens bis 2,83 | ✅ gemessen |
+| Schwein: Tod mit den Füßen bei höchstens 2,35, Drops kommen höchstens bis 2,99 | ✅ gemessen |
+| Schweine einzeln: jedes Tier liefert 1–3 gebratene Koteletts, keins geht leer aus | ✅ 30 von 30 |
+| Schweine im Gedränge (Amboss-Stelle, 4 Läufe, 205 Tiere) | ✅ 1,91 Koteletts/Tier (erwartet 2), nur gebraten |
+| Kühe (Stelle mit gleicher Decke, 115 Tiere) | ✅ Steaks und Leder im Erwartungswert, nur gebraten |
+| **Bilanz** mit 4 Fütterungsrunden: Kuh 37 Geburten → 37 erwachsen und verarbeitet, 0 als Baby gestorben | ✅ |
+| **Bilanz**: Schwein 39 Geburten → 39 erwachsen und verarbeitet, 0 als Baby gestorben | ✅ |
+| Davon im Tötungsstrom gewartet, bis sie erwachsen waren: 18 Kälber, 19 Ferkel | ✅ keins gestorben |
+| Elterntiere bleiben vollzählig (20 Kühe, 20 Schweine) | ✅ |
+| Gesamtsimulation (4 Fütterungsrunden + 22 Minuten Zeitraffer, dazu 24 Hennen): am Ende nur noch die Elterntiere, kein Tier hängt fest, kein Gegenstand liegt herum | ✅ |
+| Kisten danach: 74 gebratene Steaks + 40 Leder, 97 gebratene Koteletts, 7 gebratene Hähnchen + 7 Federn, **kein rohes Fleisch** | ✅ |
+| Hennen bleiben vollzählig, Küken werden erst als Huhn gebraten | ✅ |
+| Blöcke nach der Simulation unverändert (keine Lecks, kein Obsidian/Bruchstein aus Wasser + Lava) | ✅ |
 
 ## Grenzen
 
@@ -204,10 +218,9 @@ zurückgelesen.
   - das Hineinführen der Tiere über Rampe und Treppen;
   - der Import mit dem Litematica-Mod selbst. Die Datei wurde mit einem eigenen Decoder und mit der
     unabhängigen Bibliothek *litemapy* blockgenau gegen das Modell geprüft.
-- Babys springen im Becken, um den Eltern zu folgen, und geraten dabei oft in die Wasserklinge und den
-  Tötungsstrom. Dort sollen sie warten, bis sie erwachsen sind. Bei der vorigen Tötungsstelle (Mauer
-  bzw. Lesepult) starben dort etwa 30 % der Babys; die neue Sperre (Schleifstein bzw. Amboss) soll das
-  verhindern – der Nachweis steht noch aus.
+- Babys springen im Becken, um den Eltern zu folgen, und geraten dabei oft (etwa jedes zweite) über
+  die Wasserklinge in den Tötungsstrom. Das ist gewollt unschädlich: Sie warten dort, bis sie
+  erwachsen sind, und landen dann gebraten in der Kiste.
 
 ---
 
@@ -234,5 +247,6 @@ Ingame-Test (eigener Testserver mit `enable-rcon=true`, `rcon.password=farmtest`
 `pause-when-empty-seconds=0`, Flachwelt):
 
 ```bash
-python3 tests/ingame/run_test.py --server-dir <server-ordner> all
+python3 tests/ingame/run_test.py --server-dir <server-ordner> all      # bauen, Brandtest, Simulation
+python3 tests/ingame/run_test.py --server-dir <server-ordner> bilanz   # Geburten vs. als Baby gestorben
 ```
