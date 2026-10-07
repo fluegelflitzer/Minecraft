@@ -69,6 +69,10 @@
    ]
   }
  },
+ "minecraft:cobbled_deepslate": {
+  "default": {},
+  "properties": {}
+ },
  "minecraft:cobblestone": {
   "default": {},
   "properties": {}

@@ -7,7 +7,8 @@ from farm.model import Model
 
 
 _ITEM = {
-    "glass": "Glas",
+    "glass": "Glas (nur über der Zentralkiste)",
+    "cobbled_deepslate": "Bruchtiefenschiefer",
     "farmland": "Ackerboden (Erde mit der Hacke)",
     "dirt": "Erde",
     "cobblestone": "Bruchstein",

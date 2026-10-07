@@ -88,7 +88,7 @@ def check_light(m: Model) -> list[str]:
             errors.append(f"Zu dunkel für Weizen über {(x, y, z)}: {light.get((x, y + 1, z), 0)}")
     sx, sy, sz = m.size
     for (x, y, z), b in m.blocks.items():
-        top_solid = b.id in ("dirt", "cobblestone", "glass") or (b.id.endswith("_slab") and b.prop("type") != "bottom")
+        top_solid = b.id in ("dirt", "cobblestone", "glass", "cobbled_deepslate") or (b.id.endswith("_slab") and b.prop("type") != "bottom")
         inside = 0 < x < sx - 1 and 0 < z < wm.WALL_Z[1] and x not in (15, 16)
         if top_solid and inside and y + 2 < sy and m.get(x, y + 1, z).id == "air" \
                 and m.get(x, y + 2, z).id == "air" and light.get((x, y + 1, z), 0) == 0:
@@ -96,32 +96,49 @@ def check_light(m: Model) -> list[str]:
     return errors
 
 
+_STEP = {"down": (0, -1, 0), "north": (0, 0, -1), "south": (0, 0, 1), "west": (-1, 0, 0), "east": (1, 0, 0)}
+
+
+def follow_hoppers(m: Model, pos) -> tuple | None:
+    """Folgt einer Trichterkette bis zum Behälter; liefert dessen Position (oder None)."""
+    seen = set()
+    while m.get(*pos).id == "hopper" and pos not in seen:
+        seen.add(pos)
+        d = _STEP[m.get(*pos).prop("facing")]
+        pos = (pos[0] + d[0], pos[1] + d[1], pos[2] + d[2])
+    return pos if m.get(*pos).id == "chest" else None
+
+
 def check_collectors(m: Model) -> list[str]:
-    """Sammler-Zelle: dicht, Schlitz-Trichter -> Kiste auf beiden Seiten, Sichtschlitze frei, Decke darüber."""
+    """Sammler-Zelle dicht, Sichtschlitze frei, Decke darüber; alle Trichter enden in der Zentralkiste."""
     errors = []
+    chests = set(m.notes["chest"])
     for (x, y, z) in m.notes["cell"]:
-        want = {(x, y - 1, z): "dirt"}
-        for dz in (-1, 1):
-            want[(x, y, z + dz)] = "glass"
-            want[(x, y + 1, z + dz)] = "glass"
+        want = {(x, y - 1, z): "dirt", (x, y, z - 1): "cobbled_deepslate", (x, y + 1, z - 1): "cobbled_deepslate",
+                (x, y, z + 1): "hopper", (x, y + 1, z + 1): "hopper"}
         for sx in (x - 1, x + 1):
             want[(sx, y, z)] = "hopper"
-            want[(sx, y, z + 1)] = "chest"
-            want[(sx, y, z - 1)] = "glass"
+            want[(sx, y, z + 1)] = "hopper"
+            want[(sx, y, z - 1)] = "cobbled_deepslate"
             for dz in (-1, 0, 1):
                 want[(sx, y + 1, z + dz)] = "air"  # Sichtschlitz
         for pos, bid in want.items():
             if m.get(*pos).id != bid:
                 errors.append(f"Sammler {(x, y, z)}: {pos} ist {m.get(*pos)}, erwartet {bid}")
-        for sx in (x - 1, x + 1):
-            if m.get(sx, y, z).id == "hopper" and m.get(sx, y, z).prop("facing") != "south":
-                errors.append(f"Sammler {(x, y, z)}: Trichter {(sx, y, z)} zeigt nicht in die Kiste")
         if m.get(x, y, z).id != "air" or m.get(x, y + 1, z).id != "air":
             errors.append(f"Sammler {(x, y, z)}: Zelle nicht frei")
         for sx in (x - 1, x, x + 1):  # Decke über Zelle und Schlitzen: voller Block
             for dz in ((-1, 0, 1) if sx != x else (0,)):
                 if m.get(sx, y + 2, z + dz).id in ("air", "farmland"):
                     errors.append(f"Sammler {(x, y, z)}: keine Decke über {(sx, y + 1, z + dz)}")
+        for start in ((x - 1, y, z), (x + 1, y, z), (x - 1, y, z + 1), (x + 1, y, z + 1)):
+            end = follow_hoppers(m, start)
+            if end not in chests:
+                errors.append(f"Trichter {start} endet nicht in der Zentralkiste, sondern bei {end}")
+    for pos in chests:
+        above = m.get(pos[0], pos[1] + 1, pos[2])
+        if above.id not in ("air", "glass", "hopper"):
+            errors.append(f"Kiste {pos} lässt sich nicht öffnen: {above} darüber")
     return errors
 
 
