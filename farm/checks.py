@@ -15,8 +15,8 @@ IGNITED_BY_LAVA = {
 }
 # Blöcke ohne diese Eigenschaft (zur Kontrolle, dass jeder verwendete Block eingeordnet ist)
 NOT_IGNITED_BY_LAVA = {
-    "minecraft:cobblestone", "minecraft:cobblestone_slab", "minecraft:cobblestone_wall",
-    "minecraft:cobblestone_stairs", "minecraft:glass", "minecraft:hopper", "minecraft:torch",
+    "minecraft:cobbled_deepslate", "minecraft:cobbled_deepslate_slab", "minecraft:cobbled_deepslate_wall",
+    "minecraft:cobbled_deepslate_stairs", "minecraft:glass", "minecraft:hopper", "minecraft:torch",
     "minecraft:wall_torch", "minecraft:ladder", "minecraft:lantern", "minecraft:stonecutter",
     "minecraft:grindstone", "minecraft:anvil",
     "minecraft:dispenser", "minecraft:comparator", "minecraft:redstone_wire", "minecraft:lava_cauldron",
@@ -24,8 +24,8 @@ NOT_IGNITED_BY_LAVA = {
 }
 # Block-Tag minecraft:blocks_motion (stoppt Lavas Suche nach einem Brandplatz)
 BLOCKS_MOTION = {
-    "minecraft:cobblestone", "minecraft:cobblestone_slab", "minecraft:cobblestone_wall",
-    "minecraft:cobblestone_stairs", "minecraft:glass", "minecraft:hopper", "minecraft:oak_trapdoor",
+    "minecraft:cobbled_deepslate", "minecraft:cobbled_deepslate_slab", "minecraft:cobbled_deepslate_wall",
+    "minecraft:cobbled_deepslate_stairs", "minecraft:glass", "minecraft:hopper", "minecraft:oak_trapdoor",
     "minecraft:oak_fence_gate", "minecraft:chest", "minecraft:lectern", "minecraft:lantern",
     "minecraft:grindstone", "minecraft:anvil",
     "minecraft:stonecutter", "minecraft:dispenser", "minecraft:lava_cauldron", "minecraft:stone",

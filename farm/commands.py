@@ -4,7 +4,7 @@ from __future__ import annotations
 from .blocks import Block
 from .model import Model
 
-_SOLID_FIRST = {"cobblestone", "glass"}
+_SOLID_FIRST = {"cobbled_deepslate", "glass"}
 _FLUIDS = {"water", "lava"}
 
 

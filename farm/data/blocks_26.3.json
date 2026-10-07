@@ -63,11 +63,11 @@
    ]
   }
  },
- "minecraft:cobblestone": {
+ "minecraft:cobbled_deepslate": {
   "default": {},
   "properties": {}
  },
- "minecraft:cobblestone_slab": {
+ "minecraft:cobbled_deepslate_slab": {
   "default": {
    "type": "bottom",
    "waterlogged": "false"
@@ -84,7 +84,7 @@
    ]
   }
  },
- "minecraft:cobblestone_stairs": {
+ "minecraft:cobbled_deepslate_stairs": {
   "default": {
    "facing": "north",
    "half": "bottom",
@@ -115,7 +115,7 @@
    ]
   }
  },
- "minecraft:cobblestone_wall": {
+ "minecraft:cobbled_deepslate_wall": {
   "default": {
    "east": "none",
    "north": "none",

@@ -7,10 +7,10 @@ from .model import Model
 
 # Block -> (Gegenstand, Hinweis); Flüssigkeiten: nur Quellen zählen (fließendes Wasser entsteht von selbst)
 _ITEM = {
-    "cobblestone": "Bruchstein",
-    "cobblestone_slab": "Bruchsteinstufe",
-    "cobblestone_wall": "Bruchsteinmauer",
-    "cobblestone_stairs": "Bruchsteintreppe",
+    "cobbled_deepslate": "Tiefenschiefer-Bruchstein",
+    "cobbled_deepslate_slab": "Tiefenschiefer-Bruchsteinstufe",
+    "cobbled_deepslate_wall": "Tiefenschiefer-Bruchsteinmauer",
+    "cobbled_deepslate_stairs": "Tiefenschiefer-Bruchsteintreppe",
     "oak_trapdoor": "Eichenfalltür",
     "oak_sign": "Eichenschild",
     "oak_wall_sign": "Eichenschild",

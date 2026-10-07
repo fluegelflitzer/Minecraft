@@ -66,8 +66,8 @@ y1/y0   2 Trichter → Doppelkiste (im Kellergang)
   dem Spalt und fällt sofort ins Becken. Die Elterntiere bleiben immer oben.
 - **Fallstreifen:** Unter jedem Zuchtgang führt ein trockener Fallstreifen ins Becken. Offene Falltüren
   an der Wand sorgen dafür, dass ein Tier, das dort erwachsen wird, in die Wasserklinge geschoben wird.
-  - Kuhbecken: Boden aus Stein mit Standschildern darauf (die Schilder halten das Wasser).
-  - Schweinebecken: Bruchsteinstufen; im Fallstreifen ein Grat aus Bruchsteinmauern.
+  - Kuhbecken: Boden aus Tiefenschiefer-Bruchstein mit Standschildern darauf (die Schilder halten das Wasser).
+  - Schweinebecken: Tiefenschiefer-Bruchsteinstufen; im Fallstreifen ein Grat aus Tiefenschiefer-Bruchsteinmauern.
 - **Tötungsstelle:** Das Tier steht im letzten Wasserfeld und ragt nur knapp in die Lavazelle. Dort
   hält es ein Sperrblock auf, über dem die Lava liegt:
   - Kühe: ein **Schleifstein** (sein Rad beginnt 0,125 hinter der Kante);
@@ -77,7 +77,7 @@ y1/y0   2 Trichter → Doppelkiste (im Kellergang)
     geraten ist, kommt deshalb mit seinem Mittelpunkt nie in die Lavazelle. Dort würde es nämlich
     springen und mit dem Kopf in die Lava geraten. So wartet es gefahrlos, bis es erwachsen ist.
   - Ein Tier, das Lava berührt, will darin nach oben schwimmen. Die **Decke** über dem letzten
-    Wasserfeld verhindert das: bei Kühen eine obere Bruchsteinstufe, bei Schweinen ein seitlich
+    Wasserfeld verhindert das: bei Kühen eine obere Tiefenschiefer-Bruchsteinstufe, bei Schweinen ein seitlich
     zeigender Trichter (er dient nur als Decke mit genau passender Unterkante).
   - Darum sterben die Tiere immer knapp über dem Boden. Ihre Drops steigen höchstens bis 2,99 Blöcke
     über Ebene 0, die Lava beginnt erst bei 3,0. **Es kann nichts verbrennen.** Das gilt auch, wenn der
@@ -99,18 +99,18 @@ y1/y0   2 Trichter → Doppelkiste (im Kellergang)
 
 | Material | Anzahl | Hinweis |
 |---|---:|---|
-| Bruchstein | 1 777 | |
-| Bruchsteinstufe | 184 | |
+| Tiefenschiefer-Bruchstein | 1 777 | |
+| Tiefenschiefer-Bruchsteinstufe | 184 | |
 | Eichenfalltür | 121 | |
 | Eichenschild | 78 | Stand- und Wandschilder; wasserdicht ohne Kollision |
-| Bruchsteinmauer | 66 | |
+| Tiefenschiefer-Bruchsteinmauer | 66 | |
 | Fackel | 45 | |
 | Glas | 42 | |
 | Wasserquelle | 24 | aus einer unendlichen Wasserquelle schöpfen |
 | **Trichter** | **20** | **100 Eisen** (2 davon nur als Decke an den Schweine-Tötungsstellen) |
 | Kiste | 12 | 6 Doppelkisten |
 | Eichenzauntor | 12 | |
-| Bruchsteintreppe | 11 | Rampe und Treppe |
+| Tiefenschiefer-Bruchsteintreppe | 11 | Rampe und Treppe |
 | **Lava** | **4 + 4** | **8 Eimer Lava** (4 Tötungsstellen + 4 Kessel) |
 | Kessel | 4 | 28 Eisen |
 | Steinsäge | 4 | 4 Eisen |
@@ -121,7 +121,7 @@ y1/y0   2 Trichter → Doppelkiste (im Kellergang)
 | **Komparator** | **2** | **2 Netherquarz** |
 | Redstone-Staub | 2 | |
 
-**Seltenes Material insgesamt:** 194 Eisen und 2 Netherquarz. Alles andere ist Bruchstein, Holz,
+**Seltenes Material insgesamt:** 194 Eisen und 2 Netherquarz. Alles andere ist Tiefenschiefer-Bruchstein, Holz,
 Glas und Wasser.
 
 ## 4. Bauen (Reihenfolge)

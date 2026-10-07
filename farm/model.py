@@ -19,10 +19,10 @@ SIZE_X, SIZE_Y, SIZE_Z = 16, 13, 32
 Y_CHEST, Y_HOPPER, Y_STREAM, Y_LAVA = 0, 1, 2, 3
 Y_SUPPORT, Y_GROW, Y_BLADE, Y_CEIL, Y_GRID, Y_PEN, Y_DECK = 5, 6, 7, 8, 9, 10, 10
 
-COBBLE = B("cobblestone")
+COBBLE = B("cobbled_deepslate")
 GLASS = B("glass")
-WALL = B("cobblestone_wall")
-SLAB_FLOOR = B("cobblestone_slab", type="bottom")
+WALL = B("cobbled_deepslate_wall")
+SLAB_FLOOR = B("cobbled_deepslate_slab", type="bottom")
 LAVA = B("lava", level=0)
 WATER = B("water", level=0)
 
@@ -31,7 +31,7 @@ COW_Z0 = 0
 PIG_Z0 = 10
 CHICKEN_Z = 26  # Reihe der Kükenzellen
 CORRIDORS = (1, 7)  # Zuchtgänge (z-Versatz zu Z0), beide an einer Außenwand; Futterdeck Z0+3..Z0+5
-SLAB = B("cobblestone_slab", type="bottom")
+SLAB = B("cobbled_deepslate_slab", type="bottom")
 
 
 class Model:
@@ -116,7 +116,7 @@ def breeding_half(h: Half, z0: int, species: str) -> None:
     # --- Unterbau und Aufzuchtbecken (y5..y8)
     # Alle Böden einer Tierart liegen auf gleicher Höhe (Kuh 6,0 / Schwein 6,5), damit das Spiel ein
     # wachsendes Tier seitlich aus dem Fallstreifen schieben kann.
-    #   Kuh:     Stein (y5) + Standschild (y6, hält das Wasser, keine Kollision)
+    #   Kuh:     Tiefenschiefer-Bruchstein (y5) + Standschild (y6, hält das Wasser, keine Kollision)
     #   Schwein: Stufe (y6); im Fallstreifen Mauer-Grat (y5, Oberkante 6,5)
     # Fallstreifen: offene Falltür an der Wand (y6) = Sperre, damit kein Baby unter die Klappe rutscht;
     # darüber ein Wandschild (y7, trocken, wasserdicht).
@@ -192,7 +192,7 @@ def breeding_half(h: Half, z0: int, species: str) -> None:
     # Decke und Sperrblock lassen keine Flüssigkeit hinein und halten Wasser und Lava getrennt.
     h.set(5, Y_LAVA, zs, COBBLE)
     if species == "cow":
-        h.set(6, Y_LAVA, zs, B("cobblestone_slab", type="top"))
+        h.set(6, Y_LAVA, zs, B("cobbled_deepslate_slab", type="top"))
         h.set(6, Y_STREAM, zk, B("grindstone", face="floor", facing="north"))
     else:
         h.set(6, Y_LAVA, zs, B("hopper", facing="east"))  # nur als Decke, zeigt in den Kern
@@ -308,10 +308,10 @@ def chicken_section(m: Model) -> None:
         m.set(x, 6, zz, B("torch"))
     # Rampe vom Boden auf die Galerie (Ostseite, Treppenstufen) – für Spieler und Tiere
     for i, (y, zz) in enumerate(((0, 30), (1, 29), (2, 28), (3, 27), (4, 26))):
-        m.set(15, y, zz, B("cobblestone_stairs", facing="north"))
+        m.set(15, y, zz, B("cobbled_deepslate_stairs", facing="north"))
     # Treppe von der Galerie auf den Laufsteg (x7, nach Norden ansteigend)
     for y, zz in ((5, 26), (6, 25), (7, 24), (8, 23), (9, 22), (10, 21)):
-        m.set(7, y, zz, B("cobblestone_stairs", facing="north"))
+        m.set(7, y, zz, B("cobbled_deepslate_stairs", facing="north"))
 
 
 # --------------------------------------------------------------------------- Kellergang, Leiter
@@ -358,7 +358,7 @@ def _neighbor(m: Model, pos, direction):
     return m.get(pos[0] + dx, pos[1] + dy, pos[2] + dz)
 
 
-_FULL_SOLID = {"minecraft:cobblestone", "minecraft:glass", "minecraft:stone", "minecraft:oak_planks", "minecraft:dispenser"}
+_FULL_SOLID = {"minecraft:cobbled_deepslate", "minecraft:glass", "minecraft:stone", "minecraft:oak_planks", "minecraft:dispenser"}
 
 
 def _wall_connects(nb: Block, toward: str) -> bool:
@@ -390,7 +390,7 @@ def _finalize_wall(m: Model, pos, block: Block) -> Block:
 def finalize(m: Model) -> None:
     """Abhängige Zustände berechnen (Mauern, Tore, Kisten, Redstone) und Wasserfluss ergänzen."""
     for pos, block in list(m.blocks.items()):
-        if block.id == "cobblestone_wall":
+        if block.id == "cobbled_deepslate_wall":
             m.blocks[pos] = _finalize_wall(m, pos, block)
         elif block.id == "oak_fence_gate":
             axis = ("north", "south") if block.prop("facing") in ("east", "west") else ("east", "west")
