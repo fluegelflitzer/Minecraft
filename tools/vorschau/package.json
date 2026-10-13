@@ -1,0 +1,10 @@
+{
+  "name": "basen-vorschau",
+  "private": true,
+  "type": "module",
+  "description": "Vorschaubilder der Basen mit three.js in headless Chromium",
+  "dependencies": {
+    "playwright": "1.56.1",
+    "three": "0.169.0"
+  }
+}

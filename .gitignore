@@ -1,2 +1,5 @@
 __pycache__/
 *.pyc
+tools/vorschau/node_modules/
+tools/vorschau/.assets
+tools/vorschau/.szene/

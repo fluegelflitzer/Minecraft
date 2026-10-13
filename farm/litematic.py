@@ -46,7 +46,7 @@ def _state_tag(block: Block) -> dict:
     return tag
 
 
-def build_nbt(m: Model, name: str, author: str, description: str) -> dict:
+def build_nbt(m: Model, name: str, author: str, description: str, timestamp_ms: int | None = None) -> dict:
     sx, sy, sz = m.size
     palette: list[Block] = [AIR]
     index = {AIR: 0}
@@ -60,7 +60,7 @@ def build_nbt(m: Model, name: str, author: str, description: str) -> dict:
                     palette.append(b)
                 values.append(index[b])
     bits = max(2, (len(palette) - 1).bit_length())
-    now = int(time.time() * 1000)
+    now = int(time.time() * 1000) if timestamp_ms is None else timestamp_ms
     total_blocks = sum(1 for v in values if v != 0)
     xyz = lambda a, b, c: {"x": nbt.Int(a), "y": nbt.Int(b), "z": nbt.Int(c)}  # noqa: E731
     region = {
@@ -92,8 +92,8 @@ def build_nbt(m: Model, name: str, author: str, description: str) -> dict:
     }
 
 
-def write(m: Model, path, name: str, author: str, description: str) -> None:
-    nbt.write_gzip(path, build_nbt(m, name, author, description))
+def write(m: Model, path, name: str, author: str, description: str, timestamp_ms: int | None = None) -> None:
+    nbt.write_gzip(path, build_nbt(m, name, author, description, timestamp_ms))
 
 
 def read_blocks(path) -> tuple[tuple[int, int, int], dict]:
